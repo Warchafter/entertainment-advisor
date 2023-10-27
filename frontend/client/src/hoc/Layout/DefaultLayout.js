@@ -1,11 +1,12 @@
 import { Sidebar, Navbar } from 'Components/index';
 
-const DefaultLayout = (props) => {
+const DefaultLayout = ({children}) => {
     return (
-        <div>
+        <>
             <Sidebar />
             <Navbar />
-        </div>
+            {children}
+        </>
     );
 }
 
