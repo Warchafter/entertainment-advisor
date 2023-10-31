@@ -1,8 +1,10 @@
+import DefaultLayout from 'hoc/Layout/DefaultLayout';
+
 const DashboardPage = () => {
     return (
-        <div>
+        <DefaultLayout title='Auth Site | Dashboard' content='Dashboard Page'>
             <h1>Dashboard Page</h1>
-        </div>
+        </DefaultLayout>
     );
 }
 

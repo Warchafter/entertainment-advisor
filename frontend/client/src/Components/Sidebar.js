@@ -1,7 +1,9 @@
+import "Components/css/Sidebar.css";
+
 const Sidebar = () => {
     return (
-        <div>
-
+        <div className="sidebar-wrapper">
+            <h3>Sidebar</h3>
         </div>
     );
 }

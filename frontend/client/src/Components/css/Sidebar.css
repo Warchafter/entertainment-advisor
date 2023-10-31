@@ -1,0 +1,7 @@
+.sidebar-wrapper {
+    display: flex;
+    min-width: 175px;
+    height: 100vh;
+    color: var(--accent-color);
+    font-family: math;
+}
