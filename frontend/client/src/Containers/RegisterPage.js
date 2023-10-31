@@ -74,7 +74,7 @@ const RegisterPage = () => {
                         required
                     />
                 </div>
-                {loading ? Loader : <button>Register</button>}
+                {loading ? <Loader /> : <button>Register</button>}
             </form>
         </DefaultLayout>
     );
