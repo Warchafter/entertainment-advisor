@@ -11,46 +11,42 @@ router.post('/api/users/login', async (req, res) => {
     const body = JSON.stringify({email, password});
 
     try {
-        const apiRes = await fetch(`${API_URL}/api/token/`, {
+        const apiRes = await fetch(`${process.env.API_URL}/api/token/`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body
+            body,
         });
 
         const data = await apiRes.json();
 
         if (apiRes.status === 200) {
-            res.setHeater('Set-Cookie', [
+            res.setHeader('Set-Cookie', [
                 cookie.serialize('access', data.access, {
                     httpOnly: true,
                     maxAge: 60 * 30,
-                    path: 'api/',
+                    path: '/api/',
                     sameSite: 'strict',
                     secure: process.env.NODE_ENV === 'production'
-                })
-            ]),
-            res.setHeater('Set-Cookie', [
+                }),
                 cookie.serialize('refresh', data.refresh, {
                     httpOnly: true,
-                    maxAge: 60 * 30 * 24,
-                    path: 'api/',
+                    maxAge: 60 * 60 * 24,
+                    path: '/api/',
                     sameSite: 'strict',
                     secure: process.env.NODE_ENV === 'production'
                 })
-            ])
+            ]);
 
-            return res.status(200).json({ success: 'Logged in successfully' });
+            return res.status(200).json({ success: 'Logged in successfully'});
+        } else {
+            return res.status(apiResponse.status).json(data);
         }
-            else {
-                return res.status(apiRes.status).json(data);
-            }
-
-    } catch (err) {
+    } catch(err) {
         return res.status(500).json({
-            error: 'Something went wrong when loggin in',
+            error: 'Something went wrong when logging in',
         });
     }
 });

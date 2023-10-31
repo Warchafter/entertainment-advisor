@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DefaultLayout from 'hoc/Layout/DefaultLayout';
-import { resetRegistered } from 'features/user';
+import { resetRegistered, login } from 'features/user';
 import { Loader } from 'Components/Loader';
 
 const LoginPage = () => {
     const dispatch = useDispatch();
-
-
 	const { loading } = useSelector(state => state.user);
 
 	const [formData, setFormData] = useState({
@@ -30,7 +28,8 @@ const LoginPage = () => {
 	const onSubmit = e => {
 		e.preventDefault();
 
-		// dispatch(register({ email, password }));
+		dispatch(login({ email, password }));
+        // Make sure to pass this as 1 parameter (as an object {})
 	};
 
     return (

@@ -18,7 +18,7 @@ router.post('/api/users/register', async (req, res) => {
     });
 
     try {
-        const registerRes = await fetch(`${process.env.API_URL}/api/users/register`, {
+        const apiRes = await fetch(`${process.env.API_URL}/api/users/register`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -27,9 +27,9 @@ router.post('/api/users/register', async (req, res) => {
             body,
         });
 
-        const data = await registerRes.json();
+        const data = await apiRes.json();
 
-        return res.status(registerRes.status).json(data)
+        return res.status(apiRes.status).json(data)
     } catch (err) {
         return res.status(500).json({
             error: 'Something went wrong when registering account.'

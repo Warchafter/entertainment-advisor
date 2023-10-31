@@ -34,6 +34,27 @@ export const register = createAsyncThunk(
     }
 )
 
+const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
+    try {
+        const res = await fetch('api/users/me', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json'
+            }
+        })
+
+        const data = await res.json();
+
+        if (res.status === 200) {
+            return data;
+        } else {
+            return thunkAPI.rejectWithValue(data);
+        }
+    } catch(err) {
+        return thunkAPI.rejectWithValue(err.response.data);
+    }
+})
+
 export const login = createAsyncThunk(
     'users/login',
     async ({ email, password }, thunkAPI) => {
@@ -55,6 +76,10 @@ export const login = createAsyncThunk(
             const data = await res.json();
 
             if (res.status === 200) {
+                const { dispatch } = thunkAPI;
+
+                dispatch(getUser());
+
                 return data;
             } else {
                 return thunkAPI.rejectWithValue(data);
@@ -98,12 +123,23 @@ const userSlice = createSlice({
             })
             .addCase(login.fulfilled, state => {
                 state.loading = false;
+                state.isAuthenticated = true;
             })
             .addCase(login.rejected, state => {
+                state.loading = false;
+            })
+            .addCase(getUser.pending, state => {
+                state.loading = true;
+            })
+            .addCase(getUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload
+            })
+            .addCase(getUser.rejected, state => {
                 state.loading = false;
             })
     },
 })
 
-export const { resetRegistered } = userSlice.actions
-export default userSlice.reducer
+export const { resetRegistered } = userSlice.actions;
+export default userSlice.reducer;
