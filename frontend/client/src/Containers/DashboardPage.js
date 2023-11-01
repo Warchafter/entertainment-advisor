@@ -17,7 +17,7 @@ const DashboardPage = () => {
                     <Loader />
                 :
                 <>
-                    <h1>Dashboard Page</h1>
+                    <h1>Dashboard Page - this is a dashboard</h1>
                     <ul>
                         <li>First Name: {user.first_name}</li>
                         <li>Last Name: {user.last_name}</li>

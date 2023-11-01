@@ -9,6 +9,7 @@
     flex-direction: column;
     flex: 1;
     overflow: hidden;
+    position: relative;
     border-radius: 10px 0px 0px 10px;
     background-color: var(--background-color);
     border-left: 1px solid var(--accent-color);
