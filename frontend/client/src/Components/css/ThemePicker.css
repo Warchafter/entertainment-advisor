@@ -24,3 +24,35 @@
     align-items: center;
     justify-content: center;
 }
+
+.theme-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 350px;
+}
+
+.theme-item-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 33.333333%;
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-color-ball {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    border: 1px black solid;
+    border-radius: 10px;
+    border-color: black;
+}
+
+.exit-button {
+    position: absolute;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    top: 5%;
+    left: 95%;
+    transform: translate(-50%, -95%);
+}

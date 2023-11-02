@@ -12,7 +12,9 @@ const Navbar = () => {
 
     const userName = (user) => {
         return (
-            <p className='nav-p-bg'>{user.first_name}, {getFirstLetter(user['last_name'])}</p>
+            <NavLink className='nav-p-bg' to="/profile">
+                {user.first_name}, {getFirstLetter(user['last_name'])}
+            </NavLink>
         );
     };
 
@@ -47,7 +49,7 @@ const Navbar = () => {
                 Auth Site
             </Link>
             <p className="nav-p-bg" onClick={() => dispatch(toggleThemePicker())}>
-                    Theme
+                Theme
             </p>
             {isAuthenticated ? authLinks : guestLinks}
         </div>
