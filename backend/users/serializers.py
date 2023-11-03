@@ -4,7 +4,6 @@ from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 User = get_user_model()
 
-
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

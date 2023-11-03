@@ -64,6 +64,10 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
     )
+    theme_picked = models.IntegerField(
+        blank=False,
+        default=1
+    )
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -76,3 +80,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    @property
+    def full_name(self):
+        "Returns the person's full name."
+        return f"{self.first_name} {self.last_name}"
