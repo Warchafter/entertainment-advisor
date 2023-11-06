@@ -16,6 +16,10 @@ const ThemePicker = () => {
         dispatch(toggleThemePicker());
     };
 
+    const onSetDefaultHandler = () => {
+        //Logic to dispatch action handler to post request themePicked to user
+    }
+
     return (
         <div className="center-wrapper">
             <div className="center-box modal-style1">
@@ -58,6 +62,7 @@ const ThemePicker = () => {
                         )
                     })}
                 </div>
+                <button >Set Default</button>
             </div>
         </div>
     );

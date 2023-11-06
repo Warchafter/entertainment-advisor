@@ -1,7 +1,15 @@
 from django.urls import path
-from .views import RegisterView, RetrieveUserView
+from rest_framework.routers import DefaultRouter
+
+from users import views
+
+router = DefaultRouter()
+router.register('users', views.UserViewSet)
+
+app_name = 'users'
 
 urlpatterns = [
-    path('register', RegisterView.as_view()),
-    path('me', RetrieveUserView.as_view()),
+    path('register', views.RegisterView.as_view()),
+    path('me', views.RetrieveUserView.as_view()),
+    # path('ui/change-theme', views.ChangeUserThemeView.as_view()),
 ]

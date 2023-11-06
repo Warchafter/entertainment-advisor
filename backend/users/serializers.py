@@ -40,4 +40,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email', 'theme_picked']
+
+
+class UserCurrentThemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['theme_picked']
