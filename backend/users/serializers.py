@@ -40,10 +40,36 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'theme_picked']
+        fields = ['id', 'first_name', 'last_name', 'email', 'theme_picked']
+
+
+class CurrentUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'id', 'email', 'first_name', 'last_name', 'theme_picked', 'is_staff'
+        )
+        read_only_fields = ('id', 'email', 'is_staff')
 
 
 class UserCurrentThemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['theme_picked']
+        fields = ['id', 'theme_picked']
+
+class ThemePatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'theme_picked']
+
+
+class UserAccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['__all__',]
+
+
+class PasswordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['password',]
