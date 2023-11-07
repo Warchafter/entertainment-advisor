@@ -60,7 +60,7 @@ class UserCurrentThemeSerializer(serializers.ModelSerializer):
 class ThemePatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'theme_picked']
+        fields = ['theme_picked',]
 
 
 class UserAccountSerializer(serializers.ModelSerializer):

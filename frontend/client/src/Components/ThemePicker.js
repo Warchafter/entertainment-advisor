@@ -6,7 +6,7 @@ import './css/ThemePicker.css';
 
 const ThemePicker = () => {
     const dispatch = useDispatch();
-    const { themePicked } = useSelector(state => state.ui);
+    const { user } = useSelector(state => state.user);
 
     const onClickHandler = (e) => {
         dispatch(setTheme(Number(e.target.getAttribute('value'))));
@@ -24,7 +24,7 @@ const ThemePicker = () => {
         <div className="center-wrapper">
             <div className="center-box modal-style1">
                 <p className='exit-button' onClick={onCloseHandler}>x</p>
-                <h3>Theme Picker | Current: {themePicked}</h3>
+                <h3>Theme Picker | Current: {user ? user.theme_picked : 1}</h3>
                 <div className="theme-wrapper">
                     {themeList.map((value, index) => {
                         var i;

@@ -99,6 +99,8 @@ class UserViewSet(viewsets.ModelViewSet):
             return serializers.CurrentUserSerializer
         elif self.action == 'set_password':
             return serializers.PasswordSerializer
+        elif self.action == 'set_theme':
+            return serializers.ThemePatchSerializer
 
 
     @action(detail=True, methods=['patch'], permission_classes=[permissions.IsAuthenticated], url_path='set_password')
@@ -112,12 +114,27 @@ class UserViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             user.set_password(serializer.validated_data['password'])
             user.save()
-            return Response({'status': 'password set'})
+            return Response({'status': 'password set'}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-    # @action(detiail=True, methods=['patch', permission_classes=[permissions.]])
+    @action(detail=True, methods=['patch'], permission_classes=[permissions.IsAuthenticated], url_path='set_theme')
+    def set_theme(self, request, pk=None):
+        user = self.get_object()
+        serializer = self.get_serializer(
+            user,
+            data=request.data
+        )
+
+        print(request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
     @action(detail=False)

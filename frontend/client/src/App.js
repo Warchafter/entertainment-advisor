@@ -17,22 +17,35 @@ import ProfilePage from "Containers/ProfilePage";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { themePicked } = useSelector(state => state.ui);
+  const { user } = useSelector(state => state.user);
 
   useEffect(() => {
     dispatch(checkAuth());
   }, []);
 
   useEffect(() => {
-    themeList.map((value, index) => {
-      if (value.themeId === themePicked) {
-        var i;
-        for(i in value.cssAttributes) {
-          document.documentElement.style.setProperty(value.cssAttributes[i].name, value.cssAttributes[i].value);
+    if (user !== null) {
+      themeList.map((value, index) => {
+        if (value.themeId === user.theme_picked) {
+          var i;
+          for(i in value.cssAttributes) {
+            document.documentElement.style.setProperty(value.cssAttributes[i].name, value.cssAttributes[i].value);
+          }
         }
-      }
-      return <></>
-    })}, [themePicked]);
+        return <></>
+      })
+    } else {
+      themeList.map((value, index) => {
+        if (value.themeId === 1) {
+          var i;
+          for(i in value.cssAttributes) {
+            document.documentElement.style.setProperty(value.cssAttributes[i].name, value.cssAttributes[i].value);
+          }
+        }
+        return <></>
+      })
+    }
+  }, [user]);
 
   return (
       <Router>

@@ -141,6 +141,38 @@ export const logout =  createAsyncThunk(
         };
 });
 
+
+export const setDefaultTheme = createAsyncThunk(
+    'users/setDefaultTheme',
+    async ({ theme_picked }, thunkAPI) => {
+        const body = JSON.stringify({
+            theme_picked
+        })
+
+        try {
+            const res = await fetch(`/api/users/users/${initialState.user.id}/set_theme/`, {
+                method: 'PATCH',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body,
+            });
+
+            const data = await res.json();
+
+            if (res.status === 200) {
+                return data;
+            } else {
+                return thunkAPI.rejectWithValue(data);
+            }
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.response.data);
+        }
+    }
+)
+
+
 const initialState = {
     isAuthenticated: false,
     user: null,
