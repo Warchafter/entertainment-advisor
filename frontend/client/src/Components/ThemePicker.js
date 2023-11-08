@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { themeList } from "shared/themeList";
 import { toggleThemePicker, setTheme } from "features/ui";

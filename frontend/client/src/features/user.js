@@ -47,7 +47,7 @@ export const register = createAsyncThunk(
 
 const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
     try {
-        const res = await fetch('api/users/me', {
+        const res = await fetch('/api/users/me', {
             method: 'GET',
             headers: {
                 Accept: 'application/json'
@@ -165,8 +165,8 @@ export const setDefaultTheme = createAsyncThunk(
         console.log("body: ", body);
 
         try {
-            const res = await fetch(`/api/users/users/${id}/set_theme/`, {
-                method: 'PATCH',
+            const res = await fetch('/api/users/setDefaultTheme', {
+                method: 'PUT',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
