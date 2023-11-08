@@ -2,6 +2,16 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 
 
+const initialState = {
+    isAuthenticated: false,
+    user: null,
+    loading: false,
+    registered: false,
+    error: null
+};
+
+
+
 export const register = createAsyncThunk(
     'users/register',
     async ({ first_name, last_name, email, password }, thunkAPI) => {
@@ -145,18 +155,17 @@ export const logout =  createAsyncThunk(
 
 export const setDefaultTheme = createAsyncThunk(
     'users/setDefaultTheme',
-    async ({ theme_picked }, thunkAPI) => {
-        const { themePicked } = useSelector(state => state.ui);
-        const userId = initialState.user.id;
+    async ({ id, theme_picked}, thunkAPI) => {
+        console.log("themePicked: ", theme_picked);
         const body = JSON.stringify({
-            userId,
-            themePicked
+            id,
+            theme_picked
         });
 
         console.log("body: ", body);
 
         try {
-            const res = await fetch(`/api/users/users/${initialState.user.id}/set_theme/`, {
+            const res = await fetch(`/api/users/users/${id}/set_theme/`, {
                 method: 'PATCH',
                 headers: {
                     Accept: 'application/json',
@@ -173,19 +182,13 @@ export const setDefaultTheme = createAsyncThunk(
                 return thunkAPI.rejectWithValue(data);
             }
         } catch (err) {
+            console.log("Error: ",err);
             return thunkAPI.rejectWithValue(err.response.data);
         }
     }
 )
 
 
-const initialState = {
-    isAuthenticated: false,
-    user: null,
-    loading: false,
-    registered: false,
-    error: null
-};
 
 const userSlice = createSlice({
     name: 'user',
@@ -251,15 +254,18 @@ const userSlice = createSlice({
             .addCase(setDefaultTheme.pending, state => {
                 state.loading = true;
             })
-            .addCase(setDefaultTheme.fulfilled, (state, payload) => {
+            .addCase(setDefaultTheme.fulfilled, (state, action) => {
                 state.loading = false;
-                state.user.theme_picked = payload.data.theme_picked
+                state.user.theme_picked = action.payload
             })
-            .addCase(setDefaultTheme.rejected, state => {
+            .addCase(setDefaultTheme.rejected, (state, action) => {
+                console.log("Error: ",action.error.message);
                 state.loading = false;
             });
     },
-})
+});
+
+export const getUserData = (state) => state.user.user;
 
 export const { resetRegistered } = userSlice.actions;
 export default userSlice.reducer;

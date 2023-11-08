@@ -12,8 +12,6 @@ const LoginPage = () => {
 	const { loading, isAuthenticated, registered } = useSelector(state => state.user);
 
 	const [formData, setFormData] = useState({
-        first_name: '',
-		last_name: '',
 		email: '',
 		password: '',
 	});

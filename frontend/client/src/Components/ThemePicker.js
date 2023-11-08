@@ -1,19 +1,24 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { themeList } from "shared/themeList";
 import { toggleThemePicker, setTheme } from "features/ui";
 import { setDefaultTheme } from 'features/user';
+import { getUserData } from 'features/user';
 
 import './css/ThemePicker.css';
 
 const ThemePicker = () => {
     const dispatch = useDispatch();
     const { themePicked } = useSelector(state => state.ui);
-    const { user } = useSelector(state => state.user);
+    const user = useSelector(getUserData);
+
 
     const onClickHandler = (e) => {
         const theme_picked = Number(e.target.getAttribute('value'))
+        const id = user.id;
         dispatch(setTheme(theme_picked));
-        dispatch(setDefaultTheme());
+        dispatch(setDefaultTheme({ id, theme_picked }));
+        console.log('action should have been dispatched');
     };
 
     const onCloseHandler = () => {
