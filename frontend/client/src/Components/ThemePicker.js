@@ -1,30 +1,31 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { themeList } from "shared/themeList";
 import { toggleThemePicker, setTheme } from "features/ui";
+import { setDefaultTheme } from 'features/user';
 
 import './css/ThemePicker.css';
 
 const ThemePicker = () => {
     const dispatch = useDispatch();
+    const { themePicked } = useSelector(state => state.ui);
     const { user } = useSelector(state => state.user);
 
     const onClickHandler = (e) => {
-        dispatch(setTheme(Number(e.target.getAttribute('value'))));
+        const theme_picked = Number(e.target.getAttribute('value'))
+        dispatch(setTheme(theme_picked));
+        dispatch(setDefaultTheme());
     };
 
     const onCloseHandler = () => {
         dispatch(toggleThemePicker());
     };
 
-    const onSetDefaultHandler = () => {
-        //Logic to dispatch action handler to post request themePicked to user
-    }
 
     return (
         <div className="center-wrapper">
             <div className="center-box modal-style1">
                 <p className='exit-button' onClick={onCloseHandler}>x</p>
-                <h3>Theme Picker | Current: {user ? user.theme_picked : 1}</h3>
+                <h3>Theme Picker | Current: {user ? user.theme_picked : themePicked}</h3>
                 <div className="theme-wrapper">
                     {themeList.map((value, index) => {
                         var i;

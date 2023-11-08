@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    // themePicked: 1,
+    themePicked: 1,
     themePickerToggle: false,
 };
 

@@ -5,19 +5,20 @@ const fetch = (...args) =>
 
 const router = express.Router();
 
-router.get('/api/users/ui', async (req, res) => {
+router.get('api/users/setDefaultTheme', async (req, res) => {
     const { access } = req.cookies;
+    console.log("body: ", req.body);
+    const {id, theme_picked} = req.body;
 
-    const body = JSON.stringify({
-        token: access
-    });
+    const body = JSON.stringify({theme_picked});
 
     try {
-        const apiResponse = await fetch(`${process.env.API_URL}/api/me/`, {
-            method: 'PUT',
+        const apiResponse = await fetch(`${process.env.API_URL}/api/users/users/${id}/set_theme/`, {
+            method: 'PATCH',
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${access}`
             },
             body,
         });

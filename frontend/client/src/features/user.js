@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 
 
 export const register = createAsyncThunk(
@@ -145,9 +146,14 @@ export const logout =  createAsyncThunk(
 export const setDefaultTheme = createAsyncThunk(
     'users/setDefaultTheme',
     async ({ theme_picked }, thunkAPI) => {
+        const { themePicked } = useSelector(state => state.ui);
+        const userId = initialState.user.id;
         const body = JSON.stringify({
-            theme_picked
-        })
+            userId,
+            themePicked
+        });
+
+        console.log("body: ", body);
 
         try {
             const res = await fetch(`/api/users/users/${initialState.user.id}/set_theme/`, {
@@ -240,6 +246,16 @@ const userSlice = createSlice({
                 state.user = null;
             })
             .addCase(logout.rejected, state => {
+                state.loading = false;
+            })
+            .addCase(setDefaultTheme.pending, state => {
+                state.loading = true;
+            })
+            .addCase(setDefaultTheme.fulfilled, (state, payload) => {
+                state.loading = false;
+                state.user.theme_picked = payload.data.theme_picked
+            })
+            .addCase(setDefaultTheme.rejected, state => {
                 state.loading = false;
             });
     },
