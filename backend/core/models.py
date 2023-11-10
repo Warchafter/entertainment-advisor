@@ -1,33 +1,95 @@
-# import uuid
-# import os
-# from django.db import models
-# from django.db.models import F
-# from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-# from django.utils import timezone
-# from django.utils.translation import gettext_lazy as _
-# from django.conf import settings
+
+from django.db import models
+from django.db.models import F
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 
-# class SuppliesCategories(models.Model):
+class InventoryCategory(models.Model):
+    """ """
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        ordering = ('-name',)
+
+    def __str__(self):
+        return self.name
+
+
+class InventoryStatus(models.Model):
+    """ """
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        ordeting = ('-name',)
+
+    def __str__(self):
+        return self.name
+
+
+class Inventory(models.Model):
+    """ """
+    name = models.CharField(max_length=255)
+    description = models.TextField(max_length=3600)
+    category = models.ManyToManyField(InventoryCategory)
+    status = models.ManyToOneRel(InventoryStatus)
+    amount = models.SmallIntegerField(max_length=4)
+
+    class Meta:
+        ordering = ('-name',)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductCategory(models.Model):
+    """ """
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        ordeting = ('-name',)
+
+    def __str__(self):
+        return self.name
+
+
+class ProductStatus(models.Model):
+    """ """
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        ordeting = ('-name',)
+
+    def __str__(self):
+        return self.name
+
+
+class Manufacturer(models.Model):
+    """ """
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        ordeting = ('-name',)
+
+    def __str__(self):
+        return self.name
+
+
+class Product(models.Model):
+    """ """
+    name = models.CharField(max_length=255)
+    category = models.ManyToManyRel(ProductCategory)
+    status = models.ManyToManyRel(ProductStatus)
+    manufacturer = models.OneToOneRel(Manufacturer)
+
+    class Meta:
+        ordeting = ('-name',)
+
+    def __str__(self):
+        return self.name
+
+
+# class Order(models.Model):
 #     """ """
 #     name = models.CharField(max_length=255)
-
-#     class Meta:
-#         ordering = ('-name',)
-
-#     def __str__(self):
-#         return self.name
-
-
-# class Supplies(models.Model):
-#     """ """
-#     name = models.CharField(max_length=255)
-#     categories = models.ManyToManyField(SuppliesCategories)
-
-#     class Meta:
-#         ordering = ('-name',)
-
-#     def __str__(self):
-#         return self.name
-
-
+#     date_order_placed = models.DateField()

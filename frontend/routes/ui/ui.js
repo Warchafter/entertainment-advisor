@@ -5,9 +5,8 @@ const fetch = (...args) =>
 
 const router = express.Router();
 
-router.get('api/users/setDefaultTheme', async (req, res) => {
+router.put('/api/users/setDefaultTheme', async (req, res) => {
     const { access } = req.cookies;
-    console.log("body: ", req.body);
     const {id, theme_picked} = req.body;
 
     const body = JSON.stringify({theme_picked});

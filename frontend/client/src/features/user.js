@@ -1,14 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-
-
-const initialState = {
-    isAuthenticated: false,
-    user: null,
-    loading: false,
-    registered: false,
-    error: null
-};
+import { setTheme } from 'features/ui';
 
 
 
@@ -57,6 +48,9 @@ const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
         const data = await res.json();
 
         if (res.status === 200) {
+            const { dispatch } = thunkAPI;
+            dispatch(setTheme(data.theme_picked));
+
             return data;
         } else {
             return thunkAPI.rejectWithValue(data);
@@ -156,13 +150,11 @@ export const logout =  createAsyncThunk(
 export const setDefaultTheme = createAsyncThunk(
     'users/setDefaultTheme',
     async ({ id, theme_picked}, thunkAPI) => {
-        console.log("themePicked: ", theme_picked);
         const body = JSON.stringify({
             id,
             theme_picked
         });
 
-        console.log("body: ", body);
 
         try {
             const res = await fetch('/api/users/setDefaultTheme', {
@@ -177,16 +169,28 @@ export const setDefaultTheme = createAsyncThunk(
             const data = await res.json();
 
             if (res.status === 200) {
+                const { dispatch } = thunkAPI;
+
+                dispatch(setTheme(data.theme_picked));
                 return data;
             } else {
                 return thunkAPI.rejectWithValue(data);
             }
         } catch (err) {
-            console.log("Error: ",err);
             return thunkAPI.rejectWithValue(err.response.data);
         }
     }
 )
+
+
+const initialState = {
+    isAuthenticated: false,
+    user: null,
+    loading: false,
+    uiLoading: false,
+    registered: false,
+    error: null
+};
 
 
 
@@ -252,15 +256,14 @@ const userSlice = createSlice({
                 state.loading = false;
             })
             .addCase(setDefaultTheme.pending, state => {
-                state.loading = true;
+                state.uiLoading = true;
             })
             .addCase(setDefaultTheme.fulfilled, (state, action) => {
-                state.loading = false;
-                state.user.theme_picked = action.payload
+                state.uiLoading = false;
+                state.user.theme_picked = action.payload.theme_picked
             })
             .addCase(setDefaultTheme.rejected, (state, action) => {
-                console.log("Error: ",action.error.message);
-                state.loading = false;
+                state.uiLoading = false;
             });
     },
 });
