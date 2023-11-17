@@ -5,41 +5,41 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 
-class InventoryCategory(models.Model):
-    """ """
-    name = models.CharField(max_length=30)
+# class InventoryCategory(models.Model):
+#     """ """
+#     name = models.CharField(max_length=30)
 
-    class Meta:
-        ordering = ('-name',)
+#     class Meta:
+#         ordering = ('-name',)
 
-    def __str__(self):
-        return self.name
-
-
-class InventoryStatus(models.Model):
-    """ """
-    name = models.CharField(max_length=30)
-
-    class Meta:
-        ordeting = ('-name',)
-
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
-class Inventory(models.Model):
-    """ """
-    name = models.CharField(max_length=255)
-    description = models.TextField(max_length=3600)
-    category = models.ManyToManyField(InventoryCategory)
-    status = models.ManyToOneRel(InventoryStatus)
-    amount = models.SmallIntegerField(max_length=4)
+# class InventoryStatus(models.Model):
+#     """ """
+#     name = models.CharField(max_length=30)
 
-    class Meta:
-        ordering = ('-name',)
+#     class Meta:
+#         ordering = ('-name',)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
+
+
+# class Inventory(models.Model):
+#     """ """
+#     name = models.CharField(max_length=255)
+#     description = models.TextField(max_length=3600)
+#     category = models.ManyToManyField(InventoryCategory)
+#     status = models.ManyToOneRel(InventoryStatus)
+#     amount = models.SmallIntegerField(max_length=4)
+
+#     class Meta:
+#         ordering = ('-name',)
+
+#     def __str__(self):
+#         return self.name
 
 
 class ProductCategory(models.Model):
@@ -47,7 +47,7 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
-        ordeting = ('-name',)
+        ordering = ('-name',)
 
     def __str__(self):
         return self.name
@@ -58,7 +58,7 @@ class ProductStatus(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
-        ordeting = ('-name',)
+        ordering = ('-name',)
 
     def __str__(self):
         return self.name
@@ -69,7 +69,7 @@ class Manufacturer(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
-        ordeting = ('-name',)
+        ordering = ('-name',)
 
     def __str__(self):
         return self.name
@@ -78,12 +78,12 @@ class Manufacturer(models.Model):
 class Product(models.Model):
     """ """
     name = models.CharField(max_length=255)
-    category = models.ManyToManyRel(ProductCategory)
-    status = models.ManyToManyRel(ProductStatus)
-    manufacturer = models.OneToOneRel(Manufacturer)
+    category = models.ManyToManyField(ProductCategory)
+    status = models.ManyToManyField(ProductStatus)
+    manufacturer = models.OneToOneField(Manufacturer, on_delete=models.CASCADE)
 
     class Meta:
-        ordeting = ('-name',)
+        ordering = ('-name',)
 
     def __str__(self):
         return self.name

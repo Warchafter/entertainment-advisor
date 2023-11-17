@@ -9,7 +9,7 @@ router.get('/api/users/me', async (req, res) => {
     const { access } = req.cookies;
 
     try {
-        const apiResponse = await fetch(`${process.env.API_URL}/api/users/me`, {
+        const apiResponse = await fetch(`${process.env.API_URL}/api/users/users/current/`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',

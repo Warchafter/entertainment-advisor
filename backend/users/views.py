@@ -1,10 +1,10 @@
-from .serializers import UserCreateSerializer, UserSerializer, UserAccountSerializer
+from .serializers import UserCreateSerializer, UserSerializer, UserAccountSerializer, AuthTokenSerializer, CurrentUserSerializer
 from users import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework import permissions, status, viewsets
-from rest_framework import filters
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework import permissions, status, viewsets, filters, generics, authentication, mixins
 from users.models import UserAccount
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -33,24 +33,54 @@ class JWTAuthenticationSafe(JWTAuthentication):
             return None
 
 
-class HelloView(APIView):
+class BaseUserAttrViewSet(viewsets.GenericViewSet,
+                          mixins.ListModelMixin,
+                          mixins.CreateModelMixin):
+    """Base viewset for user attributes"""
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def get_queryset(self):
+        """Return objects for the current authenticated user only"""
+        queryset = self.queryset
+
+        return queryset.order_by('-id').distinct()
+
+    def perform_create(self, serializer):
+        """Create a new object"""
+        serializer.save(user=self.request.user)
+
+
+
+# class RetrieveUserView(APIView):
+#     permission_classes = [permissions.IsAuthenticated]
+
+#     def get(self, request):
+#         user = request.user
+#         user = UserSerializer(user)
+
+#         return Response(user.data, status=status.HTTP_200_OK)
+    
+
+class CreateUserView(generics.CreateAPIView):
+    """Create a new auth token for user"""
+    serializer_class = UserCreateSerializer
+
+
+class CreateTokenView(ObtainAuthToken):
+    """Create a new auth token for user"""
+    serializer_class = AuthTokenSerializer
+
+
+class ManageUserView(generics.RetrieveUpdateAPIView):
+    """Manage the authenticated user"""
+    serializer_class = UserCreateSerializer
+    authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get(self, request):
-        content = {'message': 'Hello, World!'}
-        return Response(content)
-
-
-
-class RetrieveUserView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request):
-        user = request.user
-        user = UserSerializer(user)
-
-        return Response(user.data, status=status.HTTP_200_OK)
-
+    def get_object(self):
+        """Retrieve and return the authenticated user"""
+        return self.request.user
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -101,6 +131,12 @@ class UserViewSet(viewsets.ModelViewSet):
             return serializers.PasswordSerializer
         elif self.action == 'set_theme':
             return serializers.ThemePatchSerializer
+
+
+    @action(methods=['GET'], detail=False, url_path='current')
+    def get_current_user(self, request, pk=None):
+        serializer = CurrentUserSerializer(request.user)
+        return Response(serializer.data)
 
 
     @action(detail=True, methods=['patch'], permission_classes=[permissions.IsAuthenticated], url_path='set_password')

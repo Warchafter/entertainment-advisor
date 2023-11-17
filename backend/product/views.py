@@ -53,6 +53,12 @@ class ProductStatusViewSet(BaseProductAttrViewSet):
     serializer_class = serializers.ProductStatusSerializer
 
 
+class ManufacturerViewSet(BaseProductAttrViewSet):
+    """Manage product status in the database"""
+    queryset = Manufacturer.objects.all()
+    serializer_class = serializers.ManufacturerSerializer
+
+
 class ProductViewSet(viewsets.ModelViewSet):
     """Manage products in the database"""
     serializer_class = serializers.ProductSerializer
@@ -103,6 +109,8 @@ class ProductViewSet(viewsets.ModelViewSet):
         """Return appropriate serializer class"""
         if self.action == 'retrieve':
             return serializers.ProductDetailSerializer
+
+        return self.serializer_class
 
     def perform_create(self, serializer):
         """Create a new product"""

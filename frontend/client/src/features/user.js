@@ -5,12 +5,13 @@ import { setTheme } from 'features/ui';
 
 export const register = createAsyncThunk(
     'users/register',
-    async ({ first_name, last_name, email, password }, thunkAPI) => {
+    async ({ first_name, last_name, email, password, re_password }, thunkAPI) => {
         const body = JSON.stringify({
             first_name,
             last_name,
             email,
-            password
+            password,
+            re_password,
         })
 
         try {

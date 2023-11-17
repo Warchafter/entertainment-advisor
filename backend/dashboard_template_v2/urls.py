@@ -26,6 +26,9 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view()),
     path('api/token/refresh/', TokenRefreshView.as_view()),
     path('api/token/verify/', TokenVerifyView.as_view()),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')),
     path('api/users/', include('users.urls')),
+    path('api/product/', include('product.urls')),
     path("admin/", admin.site.urls),
 ]

@@ -14,9 +14,10 @@ const RegisterPage = () => {
 		last_name: '',
 		email: '',
 		password: '',
+        re_password: '',
 	});
 
-	const { first_name, last_name, email, password } = formData;
+	const { first_name, last_name, email, password, re_password } = formData;
 
 	const onChange = e => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,7 +26,7 @@ const RegisterPage = () => {
 	const onSubmit = e => {
 		e.preventDefault();
 
-		dispatch(register({ first_name, last_name, email, password }));
+		dispatch(register({ first_name, last_name, email, password, re_password }));
 	};
 
 	if (registered) return <Navigate to='/login' />;
@@ -71,6 +72,16 @@ const RegisterPage = () => {
                         name='password'
                         onChange={onChange}
                         value={password}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor='re_password'>Re Password</label>
+                    <input
+                        type='password'
+                        name='re_password'
+                        onChange={onChange}
+                        value={re_password}
                         required
                     />
                 </div>
