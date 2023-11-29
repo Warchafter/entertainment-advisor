@@ -78,6 +78,7 @@ class Manufacturer(models.Model):
 class Product(models.Model):
     """ """
     name = models.CharField(max_length=255)
+    description = models.TextField(max_length=3000)
     category = models.ManyToManyField(ProductCategory)
     status = models.ManyToManyField(ProductStatus)
     manufacturer = models.OneToOneField(Manufacturer, on_delete=models.CASCADE)

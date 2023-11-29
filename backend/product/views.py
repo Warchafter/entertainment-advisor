@@ -114,6 +114,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Create a new product"""
+        product = self.get_object()
         serializer.save(product=self.request.product)
 
     @action(detail=True, methods=['patch'], url_path='update_product')
