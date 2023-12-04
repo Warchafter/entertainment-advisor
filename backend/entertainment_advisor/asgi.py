@@ -1,5 +1,5 @@
 """
-ASGI config for dashboard_template_v2 project.
+ASGI config for entertainment_advisor project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dashboard_template_v2.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "entertainment_advisor.settings")
 
 application = get_asgi_application()
