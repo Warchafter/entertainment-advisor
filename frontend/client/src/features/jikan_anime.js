@@ -26,7 +26,7 @@ export const getWeeklyAnimeScheduleRelease = createAsyncThunk(
 
 
 const initialState = {
-    laoding: false,
+    loading: false,
     weeklyAnimeScheduleData: null
 };
 

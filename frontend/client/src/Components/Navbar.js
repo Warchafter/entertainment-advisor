@@ -48,6 +48,9 @@ const Navbar = () => {
             <Link className="nav-p-bg" to="/">
                 Auth Site
             </Link>
+            <Link className="nav-p-bg" to="/anime-test">
+                Anime Test
+            </Link>
             <p className="nav-p-bg" onClick={() => dispatch(toggleThemePicker())}>
                 Theme
             </p>

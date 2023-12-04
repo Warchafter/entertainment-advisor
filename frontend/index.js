@@ -1,3 +1,5 @@
+const dns = require('node:dns');
+dns.setDefaultResultOrder('ipv4first')
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
@@ -10,6 +12,7 @@ const logoutRoute = require('./routes/auth/logout');
 const meRoute = require('./routes/auth/me');
 const verifyRoute = require('./routes/auth/verify');
 const uiRoute = require('./routes/ui/ui');
+const weeklyAnimeRoute = require('./routes/jikanAnime/weeklyAnime');
 
 
 const app = express();
@@ -23,6 +26,7 @@ app.use(meRoute);
 app.use(registerRoute);
 app.use(verifyRoute);
 app.use(uiRoute);
+app.use(weeklyAnimeRoute);
 
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {

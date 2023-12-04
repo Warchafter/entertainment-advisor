@@ -18,7 +18,6 @@ router.post('/api/users/register', async (req, res) => {
         re_password,
     });
 
-    console.log("Body: ", body);
 
     try {
         const apiRes = await fetch(`${process.env.API_URL}/api/auth/users/`, {
