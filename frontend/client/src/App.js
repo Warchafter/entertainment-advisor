@@ -8,6 +8,7 @@ import DashboardPage from "Containers/DashboardPage";
 import LoginPage from "Containers/LoginPage";
 import RegisterPage from "Containers/RegisterPage";
 import ThemePicker from "Components/ThemePicker";
+import AnimeTest from "Containers/AnimeTest";
 
 import 'App.css';
 import { useDispatch } from "react-redux";
@@ -56,6 +57,7 @@ const App = () => {
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/themepicker' element={<ThemePicker />} />
+          <Route path='/anime-test' element={<AnimeTest />} />
         </Routes>
       </Router>
   );
