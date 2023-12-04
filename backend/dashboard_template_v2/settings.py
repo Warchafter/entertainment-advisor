@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,14 +85,12 @@ WSGI_APPLICATION = "dashboard_template_v2.wsgi.application"
 
 DATABASES = {
     "default": {
-        # "ENGINE": "django.db.backends.sqlite3",
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "railway",
-        "USER": "postgres",
-        "PASSWORD": "RAbouQVTTLXFmVfzVloW",
-        "HOST": "containers-us-west-179.railway.app",
-        "PORT": "7956",
-
+        "NAME": os.getenv('PGBD_NAME'),
+        "USER": os.getenv('PGBD_USER'),
+        "PASSWORD": os.getenv('PGBD_PASSWORD'),
+        "HOST": os.getenv('PGBD_HOST'),
+        "PORT": os.getenv('PGBD_PORT'),
     }
 }
 
@@ -159,10 +161,10 @@ DJOSER = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'kevarr.teg.dev.djan.jwt@gmail.com'
-EMAIL_HOST_PASSWORD = 'clbpcuzdhovjkchg'
+EMAIL_HOST = os.getenv('SYS_EMAIL_HOST')
+EMAIL_PORT = os.getenv('SYS_EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('SYS_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('SYS_EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 AUTH_USER_MODEL = "users.UserAccount"
