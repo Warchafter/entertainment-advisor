@@ -5,16 +5,16 @@ const fetch = (...args) =>
 const router = express.Router();
 
 router.get('/api/jikanAnime/weekly', async (req, res) => {
+    const {scheduleDay} = req.query;
+
     try {
-        const apiResponse = await fetch('https://api.jikan.moe/v4/schedules?filter=thursday&kids=false&sfw=true&sfw&unapproved', {
+        const apiResponse = await fetch(`https://api.jikan.moe/v4/schedules?filter=${scheduleDay}&kids=false&sfw=true&sfw&unapproved`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json'
             }
         });
-        console.log("Im here")
         const data = await apiResponse.json();
-        console.log("Im there")
 
         res.status(apiResponse.status).json(data);
     } catch(err) {

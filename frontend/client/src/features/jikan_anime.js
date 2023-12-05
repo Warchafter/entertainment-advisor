@@ -3,9 +3,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const getWeeklyAnimeScheduleRelease = createAsyncThunk(
     'jikanAnime',
-    async (_, thunkAPI) => {
+    async ({scheduleDay}, thunkAPI) => {
     try {
-        const res = await fetch('/api/jikanAnime/weekly', {
+        const res = await fetch(`/api/jikanAnime/weekly?scheduleDay=${scheduleDay}`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json'
