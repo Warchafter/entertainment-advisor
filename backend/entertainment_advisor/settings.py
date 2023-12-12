@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "djoser",
     "users",
     "core",
+    "jikananime",
 ]
 
 MIDDLEWARE = [

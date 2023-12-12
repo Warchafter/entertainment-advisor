@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view()),
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
+    path('api/jikananime/', include('jikananime.urls')),
     path('api/users/', include('users.urls')),
     path("admin/", admin.site.urls),
 ]
