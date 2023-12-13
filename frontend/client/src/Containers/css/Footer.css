@@ -1,0 +1,32 @@
+.footer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(13,17,23,255);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 5rem;
+}
+
+.footer-row-section {
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-info-row {
+    display: flex;
+    color: #6e7681;
+    list-style: none;
+}
+
+.footer-li {
+    margin: 0 10px 0 10px;
+}
+
+li:before{font-size:110%;content:'\00B7';padding-right:5px;}
+
+.image-logo {
+    height: 40px;
+}

@@ -42,7 +42,7 @@ const ThemePicker = () => {
                             );
                         }
                         return (
-                            <div
+                            <button
                                 className="theme-item-wrapper"
                                 onClick={e => {onClickHandler(e)}}
                                 id={value.themeId}
@@ -61,7 +61,7 @@ const ThemePicker = () => {
                                 <p value={value.themeId}>
                                     {value.themeName}
                                 </p>
-                            </div>
+                            </button>
                         )
                     })}
                 </div>

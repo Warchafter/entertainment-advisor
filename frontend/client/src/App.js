@@ -14,6 +14,7 @@ import 'App.css';
 import { useDispatch } from "react-redux";
 import { themeList } from "shared/themeList";
 import ProfilePage from "Containers/ProfilePage";
+import LandingPage from "Containers/LandingPage";
 
 
 const App = () => {
@@ -58,6 +59,7 @@ const App = () => {
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/themepicker' element={<ThemePicker />} />
           <Route path='/anime-test' element={<AnimeTest />} />
+          <Route path='/landing-page' element={<LandingPage />} />
         </Routes>
       </Router>
   );

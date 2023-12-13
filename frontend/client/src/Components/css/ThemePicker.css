@@ -38,6 +38,17 @@
     flex: 0 0 33.333333%;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
+}
+
+.theme-item-wrapper:hover {
+    background-color: rgba(0, 0, 0, 5%);
+}
+
+.theme-item-wrapper:active {
+    background-color: rgba(0, 0, 0, 10%);
 }
 
 .theme-color-ball {
@@ -55,4 +66,8 @@
     top: 5%;
     left: 95%;
     transform: translate(-50%, -95%);
+}
+
+.exit-button:hover {
+
 }
