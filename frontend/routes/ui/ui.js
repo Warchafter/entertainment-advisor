@@ -24,6 +24,29 @@ router.put('/api/users/setDefaultTheme', async (req, res) => {
 
         const data = await apiResponse.json();
 
+        if (apiRes.status === 200) {
+            res.setHeader('Set-Cookie', [
+                cookie.serialize('access', data.access, {
+                    httpOnly: true,
+                    maxAge: 60 * 30,
+                    path: '/api/',
+                    sameSite: 'strict',
+                    secure: process.env.NODE_ENV === 'production'
+                }),
+                cookie.serialize('refresh', data.refresh, {
+                    httpOnly: true,
+                    maxAge: 60 * 60 * 24,
+                    path: '/api/',
+                    sameSite: 'strict',
+                    secure: process.env.NODE_ENV === 'production'
+                })
+            ]);
+
+            return res.status(200).json({ success: 'Theme set successfully'});
+        } else {
+            return res.status(apiResponse.status).json(data);
+        }
+
         res.status(apiResponse.status).json(data);
     } catch(err) {
         return res.status(500).json({
