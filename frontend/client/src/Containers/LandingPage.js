@@ -1,5 +1,6 @@
-import FloatingNavbar from "Components/FloatingNavbar"
-import Footer from "Containers/Footer"
+import FloatingNavbar from "Components/FloatingNavbar";
+import HeroHeader from "Containers/HeroHeader";
+import Footer from "Containers/Footer";
 
 
 const LandingPage = () => {
@@ -7,9 +8,12 @@ const LandingPage = () => {
         <div className="page-container">
             <FloatingNavbar />
             <div className="content-wrapper">
-                {/* random stuff */}
+                <HeroHeader />
+                <HeroHeader />
             </div>
-            <Footer />
+            <div className="footer-position">
+                <Footer />
+            </div>
         </div>
     )
 }
