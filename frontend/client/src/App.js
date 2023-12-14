@@ -25,8 +25,29 @@ const App = () => {
     dispatch(checkAuth());
   }, []);
 
+  const getAllCookies = () => {
+    console.log('Raw document.cookie:', document.cookie);
+  
+    const allCookies = document.cookie
+      .split(';')
+      .map(cookie => cookie.trim())
+      .reduce((acc, cookie) => {
+        const [name, value] = cookie.split('=');
+        return {
+          ...acc,
+          [name]: decodeURIComponent(value),
+        };
+      }, {});
+  
+    // Use allCookies object that contains all the cookies
+    console.log('All cookies:', allCookies);
+  
+    // Your further logic with the cookies
+  }
+
   useEffect(() => {
     if (user !== null) {
+      getAllCookies()
       themeList.map((value, index) => {
         if (value.themeId === user.theme_picked) {
           var i;
@@ -37,15 +58,30 @@ const App = () => {
         return <></>
       })
     } else {
-      themeList.map((value, index) => {
-        if (value.themeId === 1) {
-          var i;
-          for(i in value.cssAttributes) {
-            document.documentElement.style.setProperty(value.cssAttributes[i].name, value.cssAttributes[i].value);
+
+      const theme_cookie = getAllCookies('theme_picked');
+      console.log('Theme picked:', theme_cookie);
+      if (theme_cookie) {
+        themeList.map((value, index) => {
+          if (value.themeId === theme_cookie) {
+            var i;
+            for(i in value.cssAttributes) {
+              document.documentElement.style.setProperty(value.cssAttributes[i].name, value.cssAttributes[i].value);
+            }
           }
-        }
-        return <></>
-      })
+          return <></>
+        })
+      } else {
+        themeList.map((value, index) => {
+          if (value.themeId === 1) {
+            var i;
+            for(i in value.cssAttributes) {
+              document.documentElement.style.setProperty(value.cssAttributes[i].name, value.cssAttributes[i].value);
+            }
+          }
+          return <></>
+        })
+      }
     }
   }, [user]);
 

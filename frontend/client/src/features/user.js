@@ -156,7 +156,6 @@ export const setDefaultTheme = createAsyncThunk(
             theme_picked
         });
 
-
         try {
             const res = await fetch('/api/users/setDefaultTheme', {
                 method: 'PUT',
