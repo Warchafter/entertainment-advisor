@@ -2,27 +2,9 @@
     display: flex;
     background-color: rgba(13,17,23,255);
     height: 700px;
-    overflow: hidden;
 }
 
-.hero-tower-wrapper {
-    display: flex;
-    overflow: hidden;
-    flex-direction: row;
-    flex-flow: row;
-    align-items: flex-end;
-    justify-content: space-around;
-}
-
-.hero-background-wrapper {
-}
-
-.hero-tower {
-    height: 100px;
-    width: 200px;
-    background-color: rgba(23,27,33,170);
-    border: 1px;
-    border-color: rgba(240, 255, 255, 0.007);
-    border-style: solid;
-    transition: height 2s;
+.hero-text {
+    color: rgb(187, 188, 190);
+    font-family: 'Signika Negative', sans-serif;
 }

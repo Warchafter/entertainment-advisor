@@ -5,10 +5,7 @@ const HeroHeader = () => {
 
     return (
         <div className="hero-wrapper">
-            <div className="hero-background-wrapper"></div>
-            <div className="hero-tower-wrapper">
-                
-            </div>
+            <h1 className="hero-text">Where the magic happens</h1>
         </div>
     );
 };
