@@ -120,3 +120,9 @@ class JikanFavoriteAnimeViewSet(viewsets.ModelViewSet):
             return Response(f"{deleted_count} favorite anime(s) deleted successfully", status=status.HTTP_200_OK)
         else:
             return Response("No favorite anime deleted", status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class TestFavoriteAnimeViewSet(viewsets.ModelViewSet):
+    queryset = JikanFavoriteAnimeViewSet
+    permission_classes = [IsAuthenticated]
