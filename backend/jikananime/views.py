@@ -126,3 +126,4 @@ class JikanFavoriteAnimeViewSet(viewsets.ModelViewSet):
 class TestFavoriteAnimeViewSet(viewsets.ModelViewSet):
     queryset = JikanFavoriteAnimeViewSet
     permission_classes = [IsAuthenticated]
+    serializer_class = serializers.TestFavoriteAnimeSerializer
