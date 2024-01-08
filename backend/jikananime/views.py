@@ -1,4 +1,5 @@
 from io import StringIO
+from django.shortcuts import get_object_or_404
 from django.core.paginator import Page
 from django.db.models import query
 from django.db.models.query import QuerySet
@@ -12,6 +13,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, SAFE_METHODS, IsAdminUser, BasePermission
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import filters
+
 
 from core.models import JikanFavoriteAnime
 from jikananime import serializers
@@ -58,7 +60,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class JikanFavoriteAnimeViewSet(viewsets.ModelViewSet):
     """Manage list of favorite animes of users"""
-    serializer_class = serializers.JikanFavoriteAnime
+    serializer_class = serializers.JikanFavoriteAnimeSerializer
     search_fields = ['mal_id', ]
     filter_backends = (filters.SearchFilter,)
     queryset = JikanFavoriteAnime.objects.all()
@@ -88,8 +90,6 @@ class JikanFavoriteAnimeViewSet(viewsets.ModelViewSet):
         # Apply order_by if provided
         if order_by:
             queryset = queryset.order_by(order_by)
-        else:
-            queryset = queryset.order_by(mal_id)
 
         return queryset
 
@@ -106,6 +106,19 @@ class JikanFavoriteAnimeViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['GET'], url_path='get-favourites/(?P<user_id>\d+)')
+    def get_favourites(self, request, user_id):
+        if int(user_id) != request.user.id:
+            return Response(
+                {"error": "Access denied. User ID does not match authenticated user."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        queryset = self.queryset.filter(user=request.user)
+        serializer = serializers.JikanFavoriteAnimeSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
     @action(detail=False, methods=['DELETE'], url_path='delete-multiple')
     def delete_multiple(self, request):

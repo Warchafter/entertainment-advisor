@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "users",
     "core",
     "jikananime",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -170,3 +172,10 @@ EMAIL_USE_TLS = True
 
 AUTH_USER_MODEL = "users.UserAccount"
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Entertainmnent Advisor API',
+    'DESCRIPTION': 'Entertainment advisor api documentation test',
+    'VERSION': '0.0.1',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
