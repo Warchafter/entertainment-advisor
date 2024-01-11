@@ -9,6 +9,7 @@ import LoginPage from "Containers/LoginPage";
 import RegisterPage from "Containers/RegisterPage";
 import ThemePicker from "Components/ThemePicker";
 import AnimeTest from "Containers/AnimeTest";
+import FavoriteAnimeList from "Containers/FavoriteAnimeList";
 
 import 'App.css';
 import { useDispatch } from "react-redux";
@@ -95,6 +96,7 @@ const App = () => {
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/themepicker' element={<ThemePicker />} />
           <Route path='/anime-test' element={<AnimeTest />} />
+          <Route path='/fav-anime-list' element={<FavoriteAnimeList />} />
           <Route path='/landing-page' element={<LandingPage />} />
         </Routes>
       </Router>
