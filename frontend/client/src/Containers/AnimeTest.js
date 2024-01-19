@@ -51,7 +51,6 @@ const AnimeTest = () => {
             <p>Favotires added: {favoriteAnimeList.count}</p>
             <ul>
                 {favoriteAnimeList.results.map((index, value) => {
-                    console.log(index);
                     return (<li id={index}>{value.mal_id} (added: {value.fav_added})</li>)
                 })}
             </ul>

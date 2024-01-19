@@ -10,12 +10,13 @@ import RegisterPage from "Containers/RegisterPage";
 import ThemePicker from "Components/ThemePicker";
 import AnimeTest from "Containers/AnimeTest";
 import FavoriteAnimeList from "Containers/FavoriteAnimeList";
+import ProfilePage from "Containers/ProfilePage";
+import LandingPage from "Containers/LandingPage";
+import DetailAnime from "Containers/DetailAnime";
 
 import 'App.css';
 import { useDispatch } from "react-redux";
 import { themeList } from "shared/themeList";
-import ProfilePage from "Containers/ProfilePage";
-import LandingPage from "Containers/LandingPage";
 
 
 const App = () => {
@@ -97,6 +98,7 @@ const App = () => {
           <Route path='/themepicker' element={<ThemePicker />} />
           <Route path='/anime-test' element={<AnimeTest />} />
           <Route path='/fav-anime-list' element={<FavoriteAnimeList />} />
+          <Route path='/detail-anime' element={<DetailAnime />} />
           <Route path='/landing-page' element={<LandingPage />} />
         </Routes>
       </Router>

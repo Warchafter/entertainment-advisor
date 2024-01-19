@@ -13,10 +13,8 @@
     max-width: 550px;
     max-height: 250px;
     background-color: rgba(13,17,23,255);
-    
     margin-top: 50px;
     margin-bottom: 50px;
-    
 }
 
 .platform-logo {
@@ -26,8 +24,15 @@
 
 .platform-description {
     color: aliceblue;
+    font-weight: 600;
 }
 
 .platform-card {
 
+}
+
+
+.platorm-line {
+    width: 5px;
+    background-color: aliceblue;
 }

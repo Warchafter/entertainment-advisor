@@ -1,0 +1,52 @@
+.detail-ctn-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 35px;
+}
+
+.main-ctn-wrapper {
+    
+}
+
+.rnd-border-1 {
+    border-color: rgb(61, 61, 61);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+.left-container {
+    width: 100%;
+    height: 250px;
+    background-color: red;
+}
+
+.title-box {
+    background-color: blue;
+    min-height: 40px;
+    width: 200px;
+}
+
+.description-box {
+    width: 100%;
+    min-height: 100px;
+    background-color: gray;
+}
+
+.right-container {
+    width: 500px;
+    height: 500px;
+    background-color: green;
+}
+
+.big-box {
+    width: 200px;
+    height: 150px;
+    background-color: darkgrey;
+}
+
+.small-box {
+    width: 200px;
+    height: 150px;
+    background-color: darkgrey;
+}

@@ -1,13 +1,4 @@
 import "./css/PlatformShowcaseV2.css";
-import ReactLogo from '../assets/images/logo-react-icon.png';
-import PythonLogo from '../assets/images/python-logo.png';
-import JavascriptLogo from '../assets/images/JavaScript-Logo.png';
-import DockerLogo from '../assets/images/docker-logo.png';
-import ReduxLogo from '../assets/images/react-redux-logo.png'
-import PostgresLogo from '../assets/images/PostgreSQL-logo.png';
-import MaterialUILogo from '../assets/images/material-ui-logo.png';
-import DjangoLogo from '../assets/images/django-logo.jpg';
-
 import {platformList} from '../shared/platformList.js';
 
 
@@ -15,14 +6,14 @@ const PlatformShowcase = () => {
     return (
         <div className='container-platforms-v2'>
             {platformList.map((value, index) => {
-                {/* console.log("value: ",value);
-                console.log("index: ",index); */}
                 return(
                     <>
                         <div className="platform-card-wrapper">
                             <img className="platform-logo" src={value.platformImageUrl} alt="logo"></img>
                             <p className="platform-description">{value.description}</p>
                         </div>
+
+                        <div className="platform-line"></div>
                     </>
                 )
             })}
