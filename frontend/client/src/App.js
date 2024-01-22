@@ -17,6 +17,7 @@ import DetailAnime from "Containers/DetailAnime";
 import 'App.css';
 import { useDispatch } from "react-redux";
 import { themeList } from "shared/themeList";
+import AnimeWeeklyList from "Containers/AnimeWeeklyList";
 
 
 const App = () => {
@@ -99,6 +100,7 @@ const App = () => {
           <Route path='/anime-test' element={<AnimeTest />} />
           <Route path='/fav-anime-list' element={<FavoriteAnimeList />} />
           <Route path='/detail-anime' element={<DetailAnime />} />
+          <Route path='/weekly-anime' element={<AnimeWeeklyList />} />
           <Route path='/landing-page' element={<LandingPage />} />
         </Routes>
       </Router>
