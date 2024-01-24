@@ -5,23 +5,31 @@ export const themeList = [
         cssAttributes: [
             {
                 name: "--background-color",
-                value: "#FAF1E4"
+                value: "rgb(18, 18, 18)"
+            },
+            {
+                name: "--2nd-background-color",
+                value: "#222425"
             },
             {
                 name: "--text-color",
-                value: "#CEDEBD"
+                value: "rgb(201, 205, 207)"
             },
             {
                 name: "--link-color",
-                value: "#a5d373"
+                value: "#029cfd"
             },
             {
                 name: "--accent-color",
-                value: "#435334"
+                value: "rgba(34, 36, 37, 0.9)"
+            },
+            {
+                name: "--border-color",
+                value: "rgba(255,255,255, 0.3)"
             },
             {
                 name: "--shadow-color",
-                value: "#9EB384"
+                value: "#292C2E"
             },
         ]
     },

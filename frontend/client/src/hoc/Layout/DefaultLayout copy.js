@@ -16,9 +16,7 @@ const DefaultLayout = ({title, content, children}) => {
                 <meta name='description' content={content}/>
             </Helmet>
             <div className='layout-lg'>
-                <div className='layout-left'>
-                    <Sidebar />
-                </div>
+                <Sidebar />
                 <div className='layout-right'>
                     <div className='layout-navbar'>
                         <Navbar />

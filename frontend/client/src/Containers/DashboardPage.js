@@ -16,14 +16,14 @@ const DashboardPage = () => {
                 ?
                     <Loader />
                 :
-                <>
-                    <h1>Dashboard Page - this is a dashboard</h1>
-                    <ul>
+                <div>
+                    <h1 style={{color: `var(--text-color)`}}>Dashboard Page - this is a dashboard</h1>
+                    <ul style={{color: `var(--accent-color)`}}>
                         <li>First Name: {user.first_name}</li>
                         <li>Last Name: {user.last_name}</li>
                         <li>Email: {user.email}</li>
                     </ul>
-                </>
+                </div>
             }
         </DefaultLayout>
     );

@@ -27,7 +27,7 @@ const ThemePicker = () => {
         <div className="center-wrapper">
             <div className="center-box modal-style1">
                 <p className='exit-button' onClick={onCloseHandler}>x</p>
-                <h3>Theme Picker | Current: {user ? user.theme_picked : themePicked}</h3>
+                <h3 style={{color: `var(--text-color)`}}>Theme Picker | Current: {user ? user.theme_picked : themePicked}</h3>
                 <div className="theme-wrapper">
                     {themeList.map((value, index) => {
                         var i;
@@ -58,7 +58,7 @@ const ThemePicker = () => {
                                         )`
                                     }}
                                 ></p>
-                                <p value={value.themeId}>
+                                <p style={{color: `var(--text-color)`}} value={value.themeId}>
                                     {value.themeName}
                                 </p>
                             </button>
