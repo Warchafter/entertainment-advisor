@@ -25,7 +25,7 @@ export const themeList = [
             },
             {
                 name: "--border-color",
-                value: "rgba(255,255,255, 0.3)"
+                value: "rgba(255,255,255, 0.2)"
             },
             {
                 name: "--shadow-color",

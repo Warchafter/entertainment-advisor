@@ -18,6 +18,7 @@ import 'App.css';
 import { useDispatch } from "react-redux";
 import { themeList } from "shared/themeList";
 import AnimeWeeklyList from "Containers/AnimeWeeklyList";
+import ToDoList from "Containers/ToDoList";
 
 
 const App = () => {
@@ -102,6 +103,7 @@ const App = () => {
           <Route path='/detail-anime' element={<DetailAnime />} />
           <Route path='/weekly-anime' element={<AnimeWeeklyList />} />
           <Route path='/landing-page' element={<LandingPage />} />
+          <Route path='/to-do-list' element={<ToDoList />} />
         </Routes>
       </Router>
   );

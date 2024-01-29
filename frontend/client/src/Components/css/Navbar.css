@@ -14,7 +14,7 @@
 }
 
 .active {
-    color: var(--shadow-color);
+    color: var(--link-color);
 }
 
 .right-links {

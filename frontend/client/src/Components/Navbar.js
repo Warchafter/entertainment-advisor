@@ -54,6 +54,9 @@ const Navbar = () => {
             <Link className="nav-p-bg" to="/fav-anime-list">
                 Anime List
             </Link>
+            <Link className="nav-p-bg" to="/to-do-list">
+                To Do List
+            </Link>
             <p className="nav-p-bg" onClick={() => dispatch(toggleThemePicker())}>
                 Theme
             </p>

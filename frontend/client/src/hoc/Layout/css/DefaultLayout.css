@@ -6,11 +6,11 @@
 
 .layout-navbar {
     background-color: var(--accent-color);
-    box-shadow: 1px 0px 1px 0px var(--border-color);
+    box-shadow: 1px 0px 1px 0px white;
 }
 
 .layout-main-content {
-
+    padding: 20px;
 }
 
 .layout-left {
