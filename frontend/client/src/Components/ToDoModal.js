@@ -1,15 +1,64 @@
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+
 import "./css/ToDoModal.css";
 
 const ToDoModal = () => {
+    // const dispatch = useDispatch();
+	// const { loading, isAuthenticated, registered } = useSelector(state => state.user);
+
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+	});
+
+	const { newEntry } = formData;
+
+	const onChange = e => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+
+	const onSubmit = e => {
+		e.preventDefault();
+
+		// dispatch(login({ newEntry })); Make sure to change login once redux
+        // is done for entry logic into backend
+        // Make sure to pass this as 1 parameter (as an object {})
+	};
+
+    // Idea: when sending the form, if the response is 401,404,etc
+    // do not delete the info in the field and change the color to red
+
     return (
         <div className="todo-main-box">
             <div className="todo-title">
                 <h2 style={{color: 'BLACK'}}>To Do List</h2>
             </div>
             <div className="todo-entry-wrapper">
-                <div className="todo-entry-box">
-                    <p>+ add an entry</p>
-                </div>
+                <form>
+                    <input
+                        type="text"
+                        placeholder="+ add an entry"
+                        onChange={onChange}
+                        value={newEntry}
+                        className="input-field"
+                    ></input>
+                    <input
+                        type="text"
+                        placeholder="+ add an entry"
+                        onChange={onChange}
+                        value={newEntry}
+                        className="focus-only"
+                    ></input>
+                    <input
+                        type="text"
+                        placeholder="+ add an entry"
+                        onChange={onChange}
+                        value=":focus-visible"
+                        className="focus-visible-only"
+                    ></input>
+                    <button class="focus-visible-only">:focus-visible</button>
+                </form>
             </div>
             <div className="todo-list">
                 <div className="todo-list-item">
