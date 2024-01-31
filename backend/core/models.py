@@ -23,3 +23,12 @@ class JikanUserInfo(models.Model):
     class Meta:
         verbose_name = 'Jikan User Info'
         verbose_name_plural = 'Jikan User Infos'
+
+
+class ToDo(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='todo')
+    todo_desc = models.TextField(null=False, blank=False)
+
+    class Meta:
+        verbose_name = 'To Do'
+        verbose_name_plural = 'To Do`s'

@@ -29,6 +29,7 @@ urlpatterns = [
     path('api/auth/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.jwt')),
     path('api/jikananime/', include('jikananime.urls')),
+    path('api/todo/', include('todo.urls')),
     path('api/users/', include('users.urls')),
     path("admin/", admin.site.urls),
 ]
