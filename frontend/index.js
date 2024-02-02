@@ -13,7 +13,8 @@ const meRoute = require('./routes/auth/me');
 const verifyRoute = require('./routes/auth/verify');
 const uiRoute = require('./routes/ui/ui');
 const weeklyAnimeRoute = require('./routes/jikanAnime/weeklyAnime');
-const favoriteAnime = require('./routes/jikanAnime/favoriteAnime');
+const favoriteAnimeRoute = require('./routes/jikanAnime/favoriteAnime');
+const todoRoute = require('./routes/todo/todo');
 
 
 const app = express();
@@ -28,7 +29,8 @@ app.use(registerRoute);
 app.use(verifyRoute);
 app.use(uiRoute);
 app.use(weeklyAnimeRoute);
-app.use(favoriteAnime);
+app.use(favoriteAnimeRoute);
+app.use(todoRoute);
 
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {

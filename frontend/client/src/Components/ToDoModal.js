@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { addNewTask } from 'features/todo';
+import { Navigate } from 'react-router-dom';
 
 import "./css/ToDoModal.css";
 
 const ToDoModal = () => {
-    // const dispatch = useDispatch();
-	// const { loading, isAuthenticated, registered } = useSelector(state => state.user);
+    const dispatch = useDispatch();
+	const { isAuthenticated } = useSelector(state => state.user);
+    const { loading, todoList } = useSelector(state => state.user);
 
 	const [formData, setFormData] = useState({
-		email: '',
-		password: '',
+		todo_desc: '',
 	});
 
-	const { newEntry } = formData;
+	const { todo_desc } = formData;
 
 	const onChange = e => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,13 +23,23 @@ const ToDoModal = () => {
 	const onSubmit = e => {
 		e.preventDefault();
 
-		// dispatch(login({ newEntry })); Make sure to change login once redux
+		// dispatch(login({ todo_desc })); Make sure to change login once redux
         // is done for entry logic into backend
         // Make sure to pass this as 1 parameter (as an object {})
+        dispatch(addNewTask({ todo_desc }));
 	};
+
+    const handleKeyDown = e => {
+        if (e.key === 'Enter' || e.key === 'NumpadEnter') {
+            console.log("enter was pressed down");
+            onSubmit(e);
+        }
+    };
 
     // Idea: when sending the form, if the response is 401,404,etc
     // do not delete the info in the field and change the color to red
+
+    if (!isAuthenticated) {return <Navigate to='/login' />}
 
     return (
         <div className="todo-main-box">
@@ -35,36 +47,28 @@ const ToDoModal = () => {
                 <h2 style={{color: 'BLACK'}}>To Do List</h2>
             </div>
             <div className="todo-entry-wrapper">
-                <form>
+                <form onSubmit={onSubmit}>
                     <input
                         type="text"
                         placeholder="+ add an entry"
                         onChange={onChange}
-                        value={newEntry}
+                        onKeyDown={handleKeyDown}
+                        value={todo_desc}
                         className="input-field"
                     ></input>
-                    <input
-                        type="text"
-                        placeholder="+ add an entry"
-                        onChange={onChange}
-                        value={newEntry}
-                        className="focus-only"
-                    ></input>
-                    <input
-                        type="text"
-                        placeholder="+ add an entry"
-                        onChange={onChange}
-                        value=":focus-visible"
-                        className="focus-visible-only"
-                    ></input>
-                    <button class="focus-visible-only">:focus-visible</button>
                 </form>
             </div>
             <div className="todo-list">
-                <div className="todo-list-item">
-                    <input type="checkbox"></input>
-                    <p className="todo-item-text">Learn something</p>
-                </div>
+                {todoList ? (
+                    todoList.data.map((value, index) => (
+                            <div className="todo-list-item">
+                                <input type="checkbox"></input>
+                                <p className="todo-item-text">Learn something</p>
+                            </div>
+                    ))
+                ) : (
+                    <p>Data is not available</p> // Placeholder or alternative rendering when data is not present
+                )}
                 <hr className="todo-item"></hr>
                 <div className="todo-list-item">
                     <input type="checkbox"></input>
