@@ -1,11 +1,39 @@
-from rest_framework import viewsets, status
-from rest_framework import filters
+from rest_framework import viewsets, status, filters, mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from core.models import ToDo
+from core.models import ToDo, ToDoStatus
 from todo import serializers
+
+
+class BaseToDoAttrViewSet(viewsets.GenericViewSet,
+                             mixins.ListModelMixin,
+                             mixins.CreateModelMixin):
+    """Base viewset for user owned product attributes"""
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """Return objects for the current authenticated user only"""
+        # assigned_only = bool(
+        #     int(self.request.query_params.get('assigned_only', 0))
+        # )
+        queryset = self.queryset
+        # if assigned_only:
+        #     queryset = queryset.filter(product__isnull=False)
+
+        return queryset.order_by('-id').distinct()
+
+    def perform_create(self, serializer):
+        """Create a new object"""
+        serializer.save()
+
+
+class ToDoStatusViewSet(BaseToDoAttrViewSet):
+    """Manage ToDo Status in the database"""
+    queryset = ToDoStatus.objects.all()
+    serializer_class = serializers.ToDoStatusSerializer
 
 
 class ToDoViewSet(viewsets.ModelViewSet):
@@ -25,7 +53,7 @@ class ToDoViewSet(viewsets.ModelViewSet):
         return [int(str_id) for str_id in qs.split(',')]
 
     def get_queryset(self):
-        """Retrieve the favorite anime list based on user and optional filters"""
+        """Retrieve the todo list based on user and optional filters"""
         order_by = self.request.query_params.get('order_by')
         queryset = self.queryset
 
@@ -44,7 +72,9 @@ class ToDoViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """Add a new todo entry"""
-        serializer.save(user=self.request.user)
+        active_status = ToDoStatus.objects.get(name='active')
+        # Set the status field of the new ToDo object to active_status
+        serializer.save(user=self.request.user, status=active_status)
 
     def destroy(self, request, pk=None):
         try:

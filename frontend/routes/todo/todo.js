@@ -31,7 +31,32 @@ router.post('/api/todo/addTask', async (req, res) => {
         res.status(apiRes.status).json(data);
     } catch(err) {
         return res.status(500).json({
-            error: `Something went wrong when trying to save anime: ${mal_id} as favorite`,
+            error: `Something went wrong when trying to add a task`,
+        });
+    };
+});
+
+// router.put('/api/todo/')
+
+router.get('/api/todo/getToDoList', async (req, res) => {
+    const { access } = req.cookies;
+
+    try {
+        const apiRes = await fetch(`${process.env.API_URL}/api/todo/todo1/`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${access}`
+            },
+        });
+
+        const data = await apiRes.json();
+
+        res.status(apiRes.status).json(data);
+    } catch(err) {
+        return res.status(500).json({
+            error: `Something went wrong when trying to get the ToDo List`,
         });
     };
 });

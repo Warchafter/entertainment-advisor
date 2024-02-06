@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { addNewTask } from 'features/todo';
+import { addNewTask, getToDoList } from 'features/todo';
 import { Navigate } from 'react-router-dom';
 
 import "./css/ToDoModal.css";
@@ -8,7 +8,7 @@ import "./css/ToDoModal.css";
 const ToDoModal = () => {
     const dispatch = useDispatch();
 	const { isAuthenticated } = useSelector(state => state.user);
-    const { loading, todoList } = useSelector(state => state.user);
+    const { loading, listLoading, todoList } = useSelector(state => state.todo);
 
 	const [formData, setFormData] = useState({
 		todo_desc: '',
@@ -19,6 +19,15 @@ const ToDoModal = () => {
 	const onChange = e => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
+
+    const onRefreshListButton = e => {
+        e.preventDefault()
+        dispatch(getToDoList())
+    }
+
+    useEffect(() => {
+        dispatch(getToDoList());
+    }, []);
 
 	const onSubmit = e => {
 		e.preventDefault();
@@ -33,6 +42,26 @@ const ToDoModal = () => {
         if (e.key === 'Enter' || e.key === 'NumpadEnter') {
             console.log("enter was pressed down");
             onSubmit(e);
+        }
+    };
+
+    const ToDoList = () => {
+        if (listLoading) {
+            return <p>Loading...</p>;
+        } else {
+            return todoList && todoList.length > 0 ? (
+                todoList.map((item) => (
+                    <>
+                        <hr className="todo-item"></hr>
+                        <div className="todo-list-item" key={item.id}>
+                            <input type="checkbox" />
+                            <p className="todo-item-text">{item.todo_desc}</p>
+                        </div>
+                    </>
+                ))
+            ) : (
+                <p>No tasks available</p>
+            );
         }
     };
 
@@ -53,41 +82,24 @@ const ToDoModal = () => {
                         placeholder="+ add an entry"
                         onChange={onChange}
                         onKeyDown={handleKeyDown}
+                        name="todo_desc"
                         value={todo_desc}
                         className="input-field"
                     ></input>
                 </form>
             </div>
             <div className="todo-list">
-                {todoList ? (
-                    todoList.data.map((value, index) => (
-                            <div className="todo-list-item">
-                                <input type="checkbox"></input>
-                                <p className="todo-item-text">Learn something</p>
-                            </div>
-                    ))
-                ) : (
-                    <p>Data is not available</p> // Placeholder or alternative rendering when data is not present
-                )}
-                <hr className="todo-item"></hr>
-                <div className="todo-list-item">
-                    <input type="checkbox"></input>
-                    <p className="todo-item-text">Learn something else!</p>
-                </div>
-                <hr className="todo-item"></hr>
-                <div className="todo-list-item">
-                    <input type="checkbox"></input>
-                    <p className="todo-item-text">Learn to fly.</p>
-                </div>
+                <ToDoList />
             </div>
             <div className="todo-footer">
                 <div className="todo-left-icons">
+                    <button className="button-13" onClick={onRefreshListButton}>Refresh</button>
                     <p>test | test | 3 items remaining</p>
                 </div>
                 <div className="todo-right-icons">
-                    <button className="button-13 ">Active</button>
-                    <button className="button-13 ">Pending</button>
-                    <button className="button-13 ">Done</button>
+                    <button className="button-13">Active</button>
+                    <button className="button-13">Pending</button>
+                    <button className="button-13">Done</button>
                 </div>
             </div>
         </div>

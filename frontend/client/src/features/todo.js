@@ -31,11 +31,67 @@ export const addNewTask = createAsyncThunk(
 )
 
 
+export const getToDoList = createAsyncThunk(
+    'todo/getToDoList',
+    async (_, thunkAPI) => {
+
+        try {
+            const res = await fetch('/api/todo/getToDoList', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            const data = await res.json()
+
+            if (res.status === 200) {
+                return data
+            } else {
+                return thunkAPI.rejectWithValue(data);
+            }
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.response.data)
+        }
+    }
+)
+
+export const updateTaskStatus = createAsyncThunk(
+    'todo/updateTaskListStatus',
+    async ({updatedTasks}, thunkAPI) => {
+
+        const body = JSON.stringify({updatedTasks})
+
+        try {
+            const res = await fetch('/api/todo/updateTaskStatus', {
+                method: 'PUT',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body
+            })
+
+            const data = await res.json()
+
+            if (res.status === 201) {
+                return data
+            } else {
+                return thunkAPI.rejectWithValue(data);
+            }
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.response.data)
+        }
+    }
+)
+
 const initialState = {
     loading: false,
+    listLoading: false,
     weeklyAnimeScheduleData: null,
     newTask: null,
-    todoList: []
+    todoList: null
 };
 
 
@@ -54,6 +110,25 @@ const todoSlice = createSlice({
                 state.newFavoriteAnime = action.payload;
             })
             .addCase(addNewTask.rejected, (state, action) => {
+                state.loading = false;
+            })
+            .addCase(getToDoList.pending, state => {
+                state.listLoading = true;
+            })
+            .addCase(getToDoList.fulfilled, (state, action) => {
+                state.listLoading = false;
+                state.todoList = action.payload;
+            })
+            .addCase(getToDoList.rejected, (state, action) => {
+                state.listLoading = false;
+            })
+            .addCase(updateTaskStatus.pending, state => {
+                state.loading = true;
+            })
+            .addCase(updateTaskStatus.fulfilled, (state, action) => {
+                state.loading = false;
+            })
+            .addCase(updateTaskStatus.rejected, (state, action) => {
                 state.loading = false;
             })
     },
