@@ -16,11 +16,17 @@ const DefaultLayout = ({title, content, children}) => {
                 <meta name='description' content={content}/>
             </Helmet>
             <div className='layout-lg'>
-                <Sidebar />
+                <div className='layout-left'>
+                    <Sidebar />
+                </div>
                 <div className='layout-right'>
-                    <Navbar />
+                    <div className='layout-navbar'>
+                        <Navbar />
+                    </div>
                     {themePickerToggle ? <ThemePicker /> : null}
-                    {children}
+                    <div className='layout-main-content'>
+                        {children}
+                    </div>
                 </div>
             </div>
         </>

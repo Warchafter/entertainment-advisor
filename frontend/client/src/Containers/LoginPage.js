@@ -46,7 +46,7 @@ const LoginPage = () => {
                         <h1>Login into your Account</h1>
                         <form onSubmit={onSubmit}>
                             <div>
-                            <label
+                                <label
                                     htmlFor='email'
                                     className='form-label-style'>
                                         Email

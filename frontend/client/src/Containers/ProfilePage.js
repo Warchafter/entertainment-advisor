@@ -3,6 +3,7 @@ import DefaultLayout from 'hoc/Layout/DefaultLayout';
 import { Loader } from 'Components/Loader';
 import { Navigate } from 'react-router-dom';
 
+
 const ProfilePage = () => {
     const { isAuthenticated, user, loading } = useSelector(state => state.user);
 

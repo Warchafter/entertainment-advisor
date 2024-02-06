@@ -7,12 +7,5 @@ class JikanFavoriteAnimeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JikanFavoriteAnime
-        fields = ('id', 'mal_id', 'fav_added', 'user')
+        fields = ('id', 'mal_id', 'fav_added')
         read_only_fields = ('id', 'fav_added')
-
-
-class TestFavoriteAnimeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = JikanFavoriteAnime
-        fields = ('id', 'mal_id', 'fav_added', 'user')

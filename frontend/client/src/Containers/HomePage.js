@@ -4,9 +4,9 @@ const HomePage = () => {
 
     return (
         <DefaultLayout title='Auth Site | Home' content='Home Page'>
-            <h1>Home Page</h1>
-            <p>test</p>
-            <p>test 2</p>
+            <h1 style={{color: `var(--text-color)`}}>Home Page</h1>
+            <p style={{color: `var(--text-color)`}}>test</p>
+            <p style={{color: `var(--text-color)`}}>test 2</p>
         </DefaultLayout>
     );
 }

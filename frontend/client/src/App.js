@@ -9,12 +9,16 @@ import LoginPage from "Containers/LoginPage";
 import RegisterPage from "Containers/RegisterPage";
 import ThemePicker from "Components/ThemePicker";
 import AnimeTest from "Containers/AnimeTest";
+import FavoriteAnimeList from "Containers/FavoriteAnimeList";
+import ProfilePage from "Containers/ProfilePage";
+import LandingPage from "Containers/LandingPage";
+import DetailAnime from "Containers/DetailAnime";
 
 import 'App.css';
 import { useDispatch } from "react-redux";
 import { themeList } from "shared/themeList";
-import ProfilePage from "Containers/ProfilePage";
-import LandingPage from "Containers/LandingPage";
+import AnimeWeeklyList from "Containers/AnimeWeeklyList";
+import ToDoList from "Containers/ToDoList";
 
 
 const App = () => {
@@ -95,7 +99,11 @@ const App = () => {
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/themepicker' element={<ThemePicker />} />
           <Route path='/anime-test' element={<AnimeTest />} />
+          <Route path='/fav-anime-list' element={<FavoriteAnimeList />} />
+          <Route path='/detail-anime' element={<DetailAnime />} />
+          <Route path='/weekly-anime' element={<AnimeWeeklyList />} />
           <Route path='/landing-page' element={<LandingPage />} />
+          <Route path='/to-do-list' element={<ToDoList />} />
         </Routes>
       </Router>
   );

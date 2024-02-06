@@ -1,6 +1,16 @@
+import { useDispatch } from 'react-redux';
+import { addFavoriteAnime } from "features/jikan_anime";
+
 import "./css/MediumAnimeModal.css";
 
 const MediumAnimeModal = ({ data }) => {
+    const dispatch = useDispatch();
+
+    const onFavClickHandler = (e) => {
+        const mal_id = Number(e.target.getAttribute('value'))
+        dispatch(addFavoriteAnime({mal_id}))
+    }
+
     return (
         <div className="mdAnimeModalWrapper">
             <div className="animeModalLayout">
@@ -17,6 +27,13 @@ const MediumAnimeModal = ({ data }) => {
                         <li>Rating: {data.rating}</li>
                     </ul>
                 </div>
+                <button
+                    onClick={onFavClickHandler}
+                    id={data.mal_id}
+                    value={data.mal_id}
+                >
+                    Fav
+                </button>
             </div>
         </div>
     );

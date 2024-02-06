@@ -14,7 +14,7 @@
     justify-content: center;
 }
 
-.modal-style1 {
+.login-modal-style {
     padding: 20px;
     background-color: var(--background-color);
     color: var(--accent-color);
@@ -26,7 +26,7 @@
 
 
 .form-label-style {
-    color: var(--accent-color);
+    color: var(--text-color);
     font-weight: bold;
 }
 .form-label-style:after {

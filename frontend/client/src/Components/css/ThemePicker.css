@@ -1,7 +1,7 @@
 .modal-style1 {
     padding: 20px;
-    background-color: var(--background-color);
-    color: var(--accent-color);
+    background-color: var(--accent-color);
+    color: var(--text-color);
     border: 1px;
     border-style: solid;
     border-color: var(--shadow-color);

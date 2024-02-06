@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "users",
     "core",
     "jikananime",
+    "todo",
     "drf_spectacular",
 ]
 
