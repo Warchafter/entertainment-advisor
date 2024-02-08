@@ -57,6 +57,32 @@ export const getToDoList = createAsyncThunk(
     }
 )
 
+export const getToDoStatusList = createAsyncThunk(
+    'todo/getToDoStatusList',
+    async (_, thunkAPI) => {
+
+        try {
+            const res = await fetch('/api/todo/getToDoStatusList', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            const data = await res.json()
+
+            if (res.status === 200) {
+                return data
+            } else {
+                return thunkAPI.rejectWithValue(data);
+            }
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.response.data)
+        }
+    }
+)
+
 export const updateTaskStatus = createAsyncThunk(
     'todo/updateTaskListStatus',
     async ({updatedTasks}, thunkAPI) => {
@@ -91,7 +117,8 @@ const initialState = {
     listLoading: false,
     weeklyAnimeScheduleData: null,
     newTask: null,
-    todoList: null
+    todoList: null,
+    toDoStatusList: null
 };
 
 
@@ -120,6 +147,16 @@ const todoSlice = createSlice({
                 state.todoList = action.payload;
             })
             .addCase(getToDoList.rejected, (state, action) => {
+                state.listLoading = false;
+            })
+            .addCase(getToDoStatusList.pending, state => {
+                state.listLoading = true;
+            })
+            .addCase(getToDoStatusList.fulfilled, (state, action) => {
+                state.listLoading = false;
+                state.toDoStatusList = action.payload;
+            })
+            .addCase(getToDoStatusList.rejected, (state, action) => {
                 state.listLoading = false;
             })
             .addCase(updateTaskStatus.pending, state => {

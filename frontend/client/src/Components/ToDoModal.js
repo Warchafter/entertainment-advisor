@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { addNewTask, getToDoList } from 'features/todo';
+import { addNewTask, getToDoList, getToDoStatusList } from 'features/todo';
 import { Navigate } from 'react-router-dom';
 
 import "./css/ToDoModal.css";
@@ -8,13 +8,34 @@ import "./css/ToDoModal.css";
 const ToDoModal = () => {
     const dispatch = useDispatch();
 	const { isAuthenticated } = useSelector(state => state.user);
-    const { loading, listLoading, todoList } = useSelector(state => state.todo);
+    const { loading, listLoading, todoList, toDoStatusList } = useSelector(state => state.todo);
+
+    const [checkedItems, setCheckedItems] = useState([]);
 
 	const [formData, setFormData] = useState({
 		todo_desc: '',
 	});
 
 	const { todo_desc } = formData;
+
+    const handleToggle = (id) => {
+        if (checkedItems.includes(id)) {
+            setCheckedItems(checkedItems.filter((item) => item !== id));
+        } else {
+            setCheckedItems([...checkedItems, id]);
+        }
+    };
+
+    const handleStatusButtonClick = (status) => {
+        // Create an array of objects with the structure { id: 1, status: 0 }
+        const updatedTasks = checkedItems.map((id) => ({ id, status }));
+
+        // Dispatch action to update task status
+        // dispatch(updateTaskStatus(updatedTasks));
+
+        // Clear checked items list
+        setCheckedItems([]);
+    };
 
 	const onChange = e => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,6 +48,7 @@ const ToDoModal = () => {
 
     useEffect(() => {
         dispatch(getToDoList());
+        dispatch(getToDoStatusList());
     }, []);
 
 	const onSubmit = e => {
@@ -40,7 +62,6 @@ const ToDoModal = () => {
 
     const handleKeyDown = e => {
         if (e.key === 'Enter' || e.key === 'NumpadEnter') {
-            console.log("enter was pressed down");
             onSubmit(e);
         }
     };
@@ -64,6 +85,21 @@ const ToDoModal = () => {
             );
         }
     };
+
+    const ToDoStatusButtons = () => {
+        if (toDoStatusList == null) {
+            return <p>Loading...</p>;
+        } else {
+            console.log("the list should have loaded");
+            return toDoStatusList && toDoStatusList.length > 0 ? (
+                toDoStatusList.map((item) => (
+                    <button className="button-13" name={item.name} onClick={() => {handleStatusButtonClick(item.id)}}>{item.name}</button>
+                ))
+            ) : (
+                <p>No tasks available</p>
+            );
+        }
+    }
 
     // Idea: when sending the form, if the response is 401,404,etc
     // do not delete the info in the field and change the color to red
@@ -97,9 +133,7 @@ const ToDoModal = () => {
                     <p>test | test | 3 items remaining</p>
                 </div>
                 <div className="todo-right-icons">
-                    <button className="button-13">Active</button>
-                    <button className="button-13">Pending</button>
-                    <button className="button-13">Done</button>
+                    <ToDoStatusButtons />
                 </div>
             </div>
         </div>

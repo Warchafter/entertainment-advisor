@@ -36,8 +36,32 @@ router.post('/api/todo/addTask', async (req, res) => {
     };
 });
 
-// router.put('/api/todo/')
 
+router.get('/api/todo/getToDoStatusList', async (req, res) => {
+    const { access } = req.cookies;
+
+    try {
+        const apiRes = await fetch(`${process.env.API_URL}/api/todo/todo-status/`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${access}`
+            },
+        });
+
+        const data = await apiRes.json();
+
+        res.status(apiRes.status).json(data);
+    } catch(err) {
+        return res.status(500).json({
+            error: `Something went wrong when trying to get the ToDo Status List`,
+        });
+    };
+});
+
+
+// router.put('/api/todo/')
 router.get('/api/todo/getToDoList', async (req, res) => {
     const { access } = req.cookies;
 
