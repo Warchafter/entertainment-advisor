@@ -1,10 +1,34 @@
-.hero-wrapper {
-    display: flex;
-    background-color: rgba(13,17,23,255);
-    height: 700px;
+.hero-image {
+    background-image: url("../../assets/images/hero-header-background-2.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, .25),
+    rgba(0, 0, 0, .25),
+    rgba(0, 0, 0, .45),
+    rgba(0, 0, 0, .65),
+    rgba(0, 0, 0, 0.95)),
+    url("../../assets/images/hero-header-background-2.jpg");
+
+    display: block;
+    position: relative;
+    padding-bottom: 30%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 
 .hero-text {
-    color: rgb(187, 188, 190);
+    text-align: center;
+    transform: translate(0, 150px);
+    color: rgb(224, 224, 224);
     font-family: 'Signika Negative', sans-serif;
+}
+
+.parentHeroHeader {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }

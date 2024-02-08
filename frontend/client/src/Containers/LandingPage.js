@@ -4,6 +4,7 @@ import PlatformShowcaseV2 from "Containers/PlatformShowcaseV2";
 import Footer from "Containers/Footer";
 
 import "./css/LandingPage.css";
+import ProjectShowcase from "./ProjectShowcase";
 
 
 const LandingPage = () => {
@@ -12,6 +13,7 @@ const LandingPage = () => {
             <FloatingNavbar />
             <div className="content-wrapper">
                 <HeroHeader />
+                <ProjectShowcase />
                 <PlatformShowcaseV2 />
             </div>
             <div className="footer-position">
