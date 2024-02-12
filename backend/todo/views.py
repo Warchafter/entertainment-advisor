@@ -55,7 +55,7 @@ class ToDoViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Retrieve the todo list based on user and optional filters"""
         order_by = self.request.query_params.get('order_by')
-        queryset = self.queryset
+        queryset = self.queryset.filter(user=self.request.user)
 
         # status = self.request.query_params.get('status')
         # add this one to the model to filter by pending, completed or whatever

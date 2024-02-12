@@ -7,24 +7,24 @@ const ProjectShowcase = () => {
     const panelsRef = useRef([]);
 
     useEffect(() => {
-    const panels = panelsRef.current;
+        const panels = panelsRef.current;
 
-    const activeHandlerPanels = () => {
-        panels.forEach((panelshowcase) => {
-        panelshowcase.addEventListener("mouseenter", () => {
-            removeActiveClasses();
-            panelshowcase.classList.add("active");
+        const activeHandlerPanels = () => {
+            panels.forEach((panelshowcase) => {
+            panelshowcase.addEventListener("mouseenter", () => {
+                removeActiveClasses();
+                panelshowcase.classList.add("active");
+                });
             });
-        });
-    };
+        };
 
-    const removeActiveClasses = () => {
-        panels.forEach((panelshowcase) => {
-        panelshowcase.classList.remove("active");
-        });
-    };
+        const removeActiveClasses = () => {
+            panels.forEach((panelshowcase) => {
+            panelshowcase.classList.remove("active");
+            });
+        };
 
-    activeHandlerPanels();
+        activeHandlerPanels();
     }, []);
 
     return (

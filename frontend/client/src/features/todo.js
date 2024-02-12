@@ -20,6 +20,9 @@ export const addNewTask = createAsyncThunk(
             const data = await res.json()
 
             if (res.status === 201) {
+                const { dispatch } = thunkAPI;
+
+                dispatch(getToDoList())
                 return data
             } else {
                 return thunkAPI.rejectWithValue(data);

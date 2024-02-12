@@ -1,9 +1,10 @@
 import "Components/css/Sidebar.css";
+import MenuCategories from "Components/MenuCategories";
 
 const Sidebar = () => {
     return (
         <div className="sidebar-wrapper">
-            <h3>Sidebar</h3>
+            <MenuCategories />
         </div>
     );
 }

@@ -11,7 +11,6 @@ const ThemePicker = () => {
     const { themePicked } = useSelector(state => state.ui);
     const user = useSelector(getUserData);
 
-
     const onClickHandler = (e) => {
         const theme_picked = Number(e.target.getAttribute('value'))
         const id = user.id;
