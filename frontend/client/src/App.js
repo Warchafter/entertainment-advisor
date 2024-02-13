@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { themeList } from "shared/themeList";
 import AnimeWeeklyList from "Containers/AnimeWeeklyList";
 import ToDoList from "Containers/ToDoList";
+import FloatingNavbarShowcase from "Containers/ComponentShowcase/FloatingNavbarShowcase";
 
 
 const App = () => {
@@ -104,6 +105,7 @@ const App = () => {
           <Route path='/weekly-anime' element={<AnimeWeeklyList />} />
           <Route path='/landing-page' element={<LandingPage />} />
           <Route path='/to-do-list' element={<ToDoList />} />
+          <Route path='/floating-navabar' element={<FloatingNavbarShowcase />} />
         </Routes>
       </Router>
   );
