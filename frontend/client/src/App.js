@@ -20,6 +20,8 @@ import { themeList } from "shared/themeList";
 import AnimeWeeklyList from "Containers/AnimeWeeklyList";
 import ToDoList from "Containers/ToDoList";
 import FloatingNavbarShowcase from "Containers/ComponentShowcase/FloatingNavbarShowcase";
+import WordleCloneMainPage from "Containers/WordleClone/WordleCloneMainPage";
+import WordleCloneGame from "Containers/WordleClone/WordleCloneGame";
 
 
 const App = () => {
@@ -106,6 +108,8 @@ const App = () => {
           <Route path='/landing-page' element={<LandingPage />} />
           <Route path='/to-do-list' element={<ToDoList />} />
           <Route path='/floating-navabar' element={<FloatingNavbarShowcase />} />
+          <Route path='/wordle-clone' element={<WordleCloneMainPage />} />
+          <Route path='/wordle-clone-game' element={<WordleCloneGame />} />
         </Routes>
       </Router>
   );
