@@ -1,8 +1,10 @@
 import { NavLink} from "react-router-dom";
 import DefaultLayout from "hoc/Layout/DefaultLayout";
 
+import { useOnPressedAlphabetKey } from "hooks/onPressedAlphabetKey";
+
 import "./css/WordleCloneGame.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const WordleCloneGame = () => {
 
@@ -24,25 +26,32 @@ const WordleCloneGame = () => {
     ///         validation to work properly on multiple functions.
     ///     10.- No matter where the user clicks, he will be able to type into the
     ///         input text field for the game.
-
     /// the user types the word --> gets saved in typedWord state
-    /// the letters are showed on the screen for current word
+    /// the letters are shown on the screen for current word
     /// only after user presses enter, does the word go into the stored array
     /// that includes the list of checked words for the user
+    ///     11.- To handle the keyboard with all the typed letters and their colors
+    ///          there can be an array of letters in the order in which they were typed
+    ///          that gets checked whenever the keyboard letters are being rendered
+    ///          from a preexisting array of all the alphabet letters.
 
     const [lineCount, setLineCount] = useState(0);
-    const [typedWord, setTypedWord] = useState(""); ///Needs to be an array.
+    const [typedWord, setTypedWord] = useState([]); ///Needs to be an array.
     const [typedEntries, setTypedEntries] = useState([])
     const [errorMsg, setErrorMsg] = useState(null);
 
-    const typedWordValidation = (e) => {
-        e.preventDefault();
-        console.log(e.target.value);
-        if (e.target.vaule.length < 6) {
-            setTypedWord(e.target.value);
+    const typedWordValidation = (event) => {
+        if (event.key === "Backspace"){
+            setTypedWord(prevLetters => prevLetters.slice(0, -1));
+            return;
+        }
+
+        if (typedWord.length < 5) {
+            setTypedWord((prevLetters => [...prevLetters, event.key.toUpperCase()]));
         } else {
             setErrorMsg("Word is too long!");
         }
+        return;
     };
 
     const onSubmitWordHandler = (e) => {
@@ -52,11 +61,38 @@ const WordleCloneGame = () => {
         } else {
             setErrorMsg("Word is too short!")
         }
+    };
+
+    const wordleRef = useRef(null);
+
+    useOnPressedAlphabetKey(wordleRef, typedWordValidation);
+
+    const LetterBoxComponent = ({ letter }) => {
+        return (
+            <div className="wordle-grid-item">
+                <p className="wordle-grid-letter">{letter}</p>
+            </div>
+        )
     }
 
-    const CurrentLineWord = () => {
-        
-    }
+    const renderCurrentLineWord = (typedWord) => {
+        // Render the first component with values from the array
+        const currentWord = typedWord.map((item, index) => (
+            <LetterBoxComponent key={index} letter={item} />
+            ));
+
+        // Render empty components to reach a total of 5
+        const remainingComponentsCount = Math.max(0, 5 - typedWord.length);
+        for (let i = 0; i < remainingComponentsCount; i++) {
+            currentWord.push(
+                <div key={`empty-${i}`} className="wordle-grid-item">
+                    <p className="wordle-grid-letter"></p>
+                </div>
+            );
+        }
+
+        return currentWord;
+    };
 
     return (
         <DefaultLayout>
@@ -64,14 +100,14 @@ const WordleCloneGame = () => {
                 <NavLink className={"nav-p-bg"} to='/wordle-clone'>Back</NavLink>
             </div>
             <input
+                id="wordle-input"
+                ref={wordleRef}
                 type="text"
                 className="hidden-input"
-                autoFocus
-                value={typedWord}
-                onChange={(e) => typedWordValidation(e)}
             >
             </input>
             <div className="wordle-grid-container">
+                {renderCurrentLineWord(typedWord)}
                 <div className="wordle-grid-item">
                     <p className="wordle-grid-letter">T</p>
                 </div>

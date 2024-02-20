@@ -1,8 +1,8 @@
 export const categories = [
     {
-        name: 'Category 1',
+        name: 'Random Apps',
         items: [
-            {id: 1, name:'Item 1.1'},
+            {id: 1, name:'Wordle Clone', url:'/wordle-clone'},
             {id: 2, name:'Item 1.2'},
             {id: 3, name:'Item 1.3'}
         ]
