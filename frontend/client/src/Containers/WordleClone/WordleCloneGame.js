@@ -41,12 +41,16 @@ const WordleCloneGame = () => {
     const [errorMsg, setErrorMsg] = useState(null);
 
     const typedWordValidation = (event) => {
+        // If the Backspace key is pressed, we remove the last element of the array
         if (event.key === "Backspace"){
             setTypedWord(prevLetters => prevLetters.slice(0, -1));
             return;
         }
 
         if (typedWord.length < 5) {
+            // The State array is destructured to prevent mutation with the limit of
+            // 5 letters.
+            //! Change this later to be a variable that the user can choose to adjust difficulty
             setTypedWord((prevLetters => [...prevLetters, event.key.toUpperCase()]));
         } else {
             setErrorMsg("Word is too long!");
@@ -57,7 +61,8 @@ const WordleCloneGame = () => {
     const onSubmitWordHandler = (e) => {
         e.preventDefault();
         if (typedWord.length === 5) {
-            ///check logic for correct word here
+            // Check logic for correct word here
+            //! Change this later to be a variable that the user can choose to adjust difficulty
         } else {
             setErrorMsg("Word is too short!")
         }
@@ -82,6 +87,7 @@ const WordleCloneGame = () => {
             ));
 
         // Render empty components to reach a total of 5
+        //! Change this later to be a variable that the user can choose to adjust difficulty
         const remainingComponentsCount = Math.max(0, 5 - typedWord.length);
         for (let i = 0; i < remainingComponentsCount; i++) {
             currentWord.push(
