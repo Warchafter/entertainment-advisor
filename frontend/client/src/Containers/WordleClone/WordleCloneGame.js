@@ -2,6 +2,7 @@ import { NavLink} from "react-router-dom";
 import DefaultLayout from "hoc/Layout/DefaultLayout";
 
 import { useOnPressedAlphabetKey } from "hooks/onPressedAlphabetKey";
+import { useOnPressedEnterGameKey } from "hooks/onPressedEnterGameKey";
 
 import "./css/WordleCloneGame.css";
 import { useState, useRef } from "react";
@@ -9,9 +10,6 @@ import { useState, useRef } from "react";
 const WordleCloneGame = () => {
 
     ///    TODO:
-    ///     1.- Capture the input of the user, which max has to be a 5 letter word.
-    ///     2.- Create an array of 5x6 for the 5 letters and the 6 different attempts.
-    ///     3.- Show the letter that the user is typing into the array.
     ///     4.- Validate that the user is typing only the letters allowed.
     ///     5.- Show a keyboard with the allowed keys.
     ///     6.- Show which keys have been used with colors:
@@ -24,8 +22,6 @@ const WordleCloneGame = () => {
     ///     8.- User cannot press enter if the word is shorter than the 5 letters.
     ///     9.- A seperate internal word counter needs to be kept in order for the
     ///         validation to work properly on multiple functions.
-    ///     10.- No matter where the user clicks, he will be able to type into the
-    ///         input text field for the game.
     /// the user types the word --> gets saved in typedWord state
     /// the letters are shown on the screen for current word
     /// only after user presses enter, does the word go into the stored array
@@ -35,9 +31,11 @@ const WordleCloneGame = () => {
     ///          that gets checked whenever the keyboard letters are being rendered
     ///          from a preexisting array of all the alphabet letters.
 
-    const [lineCount, setLineCount] = useState(0);
-    const [typedWord, setTypedWord] = useState([]); ///Needs to be an array.
-    const [typedEntries, setTypedEntries] = useState([])
+    const [wordGuessed, setWordGuessed] = useState(false);
+    const [lineCount, setLineCount] = useState(1);
+    const [typedWord, setTypedWord] = useState([]); // Needs to be an array.
+    const [typedEntries, setTypedEntries] = useState([]);
+    const [gameWord, setGameWord] = useState(['S','T','A','T','E']);
     const [errorMsg, setErrorMsg] = useState(null);
 
     const typedWordValidation = (event) => {
@@ -58,11 +56,19 @@ const WordleCloneGame = () => {
         return;
     };
 
-    const onSubmitWordHandler = (e) => {
-        e.preventDefault();
+    const onSubmitWordHandler = () => {
         if (typedWord.length === 5) {
             // Check logic for correct word here
             //! Change this later to be a variable that the user can choose to adjust difficulty
+            const combinedEntries = [...typedEntries, typedWord];
+            setTypedEntries(combinedEntries);
+            setTypedWord([]);
+            if (lineCount < 6) {
+                setLineCount(lineCount+1);
+            }
+        }
+        if (typedWord.length > 5) {
+            setErrorMsg("Word is too long!")
         } else {
             setErrorMsg("Word is too short!")
         }
@@ -71,20 +77,21 @@ const WordleCloneGame = () => {
     const wordleRef = useRef(null);
 
     useOnPressedAlphabetKey(wordleRef, typedWordValidation);
+    useOnPressedEnterGameKey(wordleRef, onSubmitWordHandler);
 
-    const LetterBoxComponent = ({ letter }) => {
+    const LetterBoxComponent = ({ letter, color }) => {
         return (
-            <div className="wordle-grid-item">
+            <div className={`wordle-grid-item ${color ? color : ""}`}>
                 <p className="wordle-grid-letter">{letter}</p>
             </div>
         )
-    }
+    };
 
     const renderCurrentLineWord = (typedWord) => {
         // Render the first component with values from the array
         const currentWord = typedWord.map((item, index) => (
             <LetterBoxComponent key={index} letter={item} />
-            ));
+        ));
 
         // Render empty components to reach a total of 5
         //! Change this later to be a variable that the user can choose to adjust difficulty
@@ -96,8 +103,61 @@ const WordleCloneGame = () => {
                 </div>
             );
         }
-
         return currentWord;
+    };
+
+    // Use lineCount to calculate the amount of remaining boxes to render
+    const renderEmptyLineBoxes = (lineCount) => {
+        const remainingEmptyLines = Math.max(0, 6 - lineCount);
+
+        // Needs to start as an empty array to push elements inside of the for loop
+        const emptyBoxes = [];
+
+        for (let i = 0; i < remainingEmptyLines; i++) {
+            for (let j = 0; j < 5; j++) {
+                emptyBoxes.push(
+                    <LetterBoxComponent key={`emptyBox-${j}-row-${i+lineCount}`} />
+                );
+            }
+        }
+        return emptyBoxes;
+    };
+
+    const renderTypedEntries = (typedEntries) => {
+        // I need to keep a local array variable for the gameWord
+        // This would look like this: ['S','T','A','T','E']
+        // Whenever the function iterates over the letters, when it founds one
+        // that matches in both letter and position, it will give it the color green
+        // and the letter inside of the array will be replaced by an empty space ""
+        // this whill allow for other duplicate letters to be considered as grey
+        // if they are not found again in the gameWord array again.
+        // the loop would need to be restarted as soon as a match for letter and position
+        // is found, for the checks to be clean all again considering the change.
+        return typedEntries.map((word, index) => {
+            console.log("word: ", word);
+            return word.map((item, index) => {
+                if (gameWord[index] === item) {
+                    return <LetterBoxComponent
+                                key={`entriesBox-${item}-row-${index}`}
+                                letter={item}
+                                color={"wordle-letter-green"}
+                            />
+                }
+                if (gameWord.includes(item)) {
+                    return <LetterBoxComponent
+                                key={`entriesBox-${item}-row-${index}`}
+                                letter={item}
+                                color={"wordle-letter-yellow"}
+                            />
+                } else {
+                    return <LetterBoxComponent
+                                key={`entriesBox-${item}-row-${index}`}
+                                letter={item}
+                                color={"wordle-letter-grey"}
+                            />
+                }
+            });
+        });
     };
 
     return (
@@ -112,26 +172,16 @@ const WordleCloneGame = () => {
                 className="hidden-input"
             >
             </input>
+            <div>
+                {errorMsg ? <p className="nav-p-bg">{errorMsg}</p> : ""}
+            </div>
             <div className="wordle-grid-container">
+                {renderTypedEntries(typedEntries)}
                 {renderCurrentLineWord(typedWord)}
-                <div className="wordle-grid-item">
-                    <p className="wordle-grid-letter">T</p>
-                </div>
-                <div className="wordle-grid-item">
-                    <p className="wordle-grid-letter">E</p>
-                </div>
-                <div className="wordle-grid-item">
-                    <p className="wordle-grid-letter">S</p>
-                </div>
-                <div className="wordle-grid-item">
-                    <p className="wordle-grid-letter">T</p>
-                </div>
-                <div className="wordle-grid-item wordle-letter-grey">
-                    <p className="wordle-grid-letter">!</p>
-                </div>
+                {renderEmptyLineBoxes(lineCount)}
             </div>
         </DefaultLayout>
-    )
+    );
 };
 
 export default WordleCloneGame;
