@@ -32,6 +32,7 @@ const WordleCloneGame = () => {
     ///          from a preexisting array of all the alphabet letters.
 
     const [wordGuessed, setWordGuessed] = useState(false);
+    const [lastTry, setLastTry] = useState(false);
     const [lineCount, setLineCount] = useState(1);
     const [typedWord, setTypedWord] = useState([]); // Needs to be an array.
     const [typedEntries, setTypedEntries] = useState([]);
@@ -60,17 +61,26 @@ const WordleCloneGame = () => {
         if (typedWord.length === 5) {
             // Check logic for correct word here
             //! Change this later to be a variable that the user can choose to adjust difficulty
+            if (typedEntries.length >= 6) {
+                setErrorMsg("You already lost!");
+                return;
+            }
             const combinedEntries = [...typedEntries, typedWord];
             setTypedEntries(combinedEntries);
             setTypedWord([]);
             if (lineCount < 6) {
                 setLineCount(lineCount+1);
             }
+            if (lineCount === 6) {
+                setLastTry(true);
+            }
         }
         if (typedWord.length > 5) {
-            setErrorMsg("Word is too long!")
+            setErrorMsg("Word is too long!");
+            return;
         } else {
-            setErrorMsg("Word is too short!")
+            setErrorMsg("Word is too short!");
+            return;
         }
     };
 
@@ -177,7 +187,7 @@ const WordleCloneGame = () => {
             </div>
             <div className="wordle-grid-container">
                 {renderTypedEntries(typedEntries)}
-                {renderCurrentLineWord(typedWord)}
+                {!lastTry?renderCurrentLineWord(typedWord):null}
                 {renderEmptyLineBoxes(lineCount)}
             </div>
         </DefaultLayout>
