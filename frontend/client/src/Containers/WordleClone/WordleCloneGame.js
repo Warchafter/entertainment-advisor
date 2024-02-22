@@ -1,6 +1,10 @@
 import { NavLink} from "react-router-dom";
 import DefaultLayout from "hoc/Layout/DefaultLayout";
 
+import WinScreenModal from "Components/WordleClone/WinScreenModal";
+
+import compareTwoArrays from "hoc/compareTwoArrays";
+
 import { useOnPressedAlphabetKey } from "hooks/onPressedAlphabetKey";
 import { useOnPressedEnterGameKey } from "hooks/onPressedEnterGameKey";
 
@@ -40,6 +44,7 @@ const WordleCloneGame = () => {
     const [errorMsg, setErrorMsg] = useState(null);
 
     const typedWordValidation = (event) => {
+        if (wordGuessed) return
         // If the Backspace key is pressed, we remove the last element of the array
         if (event.key === "Backspace"){
             setTypedWord(prevLetters => prevLetters.slice(0, -1));
@@ -64,6 +69,9 @@ const WordleCloneGame = () => {
             if (typedEntries.length >= 6) {
                 setErrorMsg("You already lost!");
                 return;
+            }
+            if (compareTwoArrays(typedWord, gameWord)) {
+                setWordGuessed(true);
             }
             const combinedEntries = [...typedEntries, typedWord];
             setTypedEntries(combinedEntries);
@@ -143,8 +151,11 @@ const WordleCloneGame = () => {
         // if they are not found again in the gameWord array again.
         // the loop would need to be restarted as soon as a match for letter and position
         // is found, for the checks to be clean all again considering the change.
+
+        ////////THIS CAN BE DONE WITH A COUNT OF THE LETTERS BEING KEPT IN STATE///////
+        ////////AND THEN WHEN A LETTER IS FOUND, THE COUNT GOES DOWN FOR///////
+        ////////STILL DOESN'T SOLVE THE ISSUE OF NOT KNOWING BEFORE IF A LETTER MATCHES///////
         return typedEntries.map((word, index) => {
-            console.log("word: ", word);
             return word.map((item, index) => {
                 if (gameWord[index] === item) {
                     return <LetterBoxComponent
@@ -175,6 +186,7 @@ const WordleCloneGame = () => {
             <div className="nav-top-header">
                 <NavLink className={"nav-p-bg"} to='/wordle-clone'>Back</NavLink>
             </div>
+            {wordGuessed?<WinScreenModal gameWord={gameWord} lineCount={lineCount}/>:null}
             <input
                 id="wordle-input"
                 ref={wordleRef}
