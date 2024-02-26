@@ -22,6 +22,7 @@ import ToDoList from "Containers/ToDoList";
 import FloatingNavbarShowcase from "Containers/ComponentShowcase/FloatingNavbarShowcase";
 import WordleCloneMainPage from "Containers/WordleClone/WordleCloneMainPage";
 import WordleCloneGame from "Containers/WordleClone/WordleCloneGame";
+import CaidaCardGame from "Containers/CaidaCardGame/CaidaCardGame";
 
 
 const App = () => {
@@ -110,6 +111,7 @@ const App = () => {
           <Route path='/floating-navabar' element={<FloatingNavbarShowcase />} />
           <Route path='/wordle-clone' element={<WordleCloneMainPage />} />
           <Route path='/wordle-clone-game' element={<WordleCloneGame />} />
+          <Route path='/caida-card-game' element={<CaidaCardGame />} />
         </Routes>
       </Router>
   );

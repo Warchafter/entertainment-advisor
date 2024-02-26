@@ -1,0 +1,11 @@
+.caida-player-icon-wrapper {
+    display: flex;
+}
+
+.caida-player-icon {
+    text-align: center;
+    border-radius: 50%;
+    background-color: orange;
+    min-height: 100px;
+    min-width: 100px;
+}
