@@ -6,7 +6,6 @@
 
 .caida-main-title {
     color: white;
-
 }
 
 .caida-main-content {
@@ -14,8 +13,26 @@
     justify-content: space-between;
     align-items: center;
     background-color: green;
-    width: 900px;
-    height: 500px;
+    width: auto;
+    height: auto;
+}
+
+.caida-history-sidebar-wrapper {
+    display: flex;
+    background-color: #d37306;
+    width: 100px;
+    height: 750px;
+    padding: 10px;
+}
+
+.caida-history-sidebar {
+    background-color: rgba(128, 128, 128, 0.562);
+    border-color: rgb(95, 95, 95);
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: solid;
+    height: 100%;
+    width: 100%;
 }
 
 .caida-main-gamearea {
@@ -26,7 +43,7 @@
 }
 
 .caida-player-grid {
-    flex: 1;
+    flex: .6;
     margin: 0 10px 0 10px;
 }
 .player-item1 {
@@ -40,20 +57,22 @@
     background-color: navy;
 }
 
-.caida-card-grid {
+.caida-card-gridtable {
     flex: 2;
     display: flex;
     flex-wrap: wrap;
-    width: 40%;
-    height: 40%;
+    justify-content: center;
 }
 
-.caida-card-grid-item {
-    flex: 1 0 25%;
-    min-height: 125px;
-    min-width: 80px;
-    border: 1px solid #7c5555;
+.caida-card-gridtable-item {
+    margin: 5px;
+    border-radius: 5px;
+    flex: 0 0 22.5%;
+    height: 140px;
+    width: 100px;
+    border: 2px solid #d37306;
     box-sizing: border-box;
-    background-color: brown;
+    background-color: transparent;
     text-align: center;
+    box-sizing: border-box;
 }

@@ -3,7 +3,7 @@ export const categories = [
         name: 'Random Apps',
         items: [
             {id: 1, name:'Wordle Clone', url:'/wordle-clone'},
-            {id: 2, name:'Item 1.2'},
+            {id: 2, name:'Caida Card Game', url:'/caida-card-game'},
             {id: 3, name:'Item 1.3'}
         ]
     },
