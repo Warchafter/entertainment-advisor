@@ -4,6 +4,7 @@ import "./css/CaidaCardGame.css";
 import CaidaPlayerIcon from 'Components/CaidaCardGame/CaidaPlayerIcon';
 import CaidaDeck from "Containers/CaidaCardGame/CaidaDeck";
 import CaidaTable from "Containers/CaidaCardGame/CaidaTable";
+import CaidaOptionModal from "Components/CaidaCardGame/CaidaOptionModal";
 
 const CaidaCardGame = () => {
     /// Random things to do:
@@ -44,10 +45,24 @@ const CaidaCardGame = () => {
     ///
     ///
     ///     [as][2][3][4][5]
-    ///     [6][7][10][11][12]
-    ///
-    ///
+    ///     [6][7][10][11][12] This is a simpler option, albeit uglier one.
+    ///                        Potentially have another 'temporary slot' for the
+    ///                        players to see the card currently being played
 
+    /// 13.-Make a pick a player name modal, and after picking it, it will choose
+    ///     the other 3 players' names.
+    /// 14.-For now, make it so 4 people have to play at any given time. Split
+    ///     into 2 teams on opposite sides. Maybe render players in a hardcoded
+    ///     way like this:
+    ///         ->initialState.teamsData[0][0] = player 1 {Human Player}
+    ///         ->initialState.teamsData[1][0] = player 2
+    ///         ->initialState.teamsData[0][1] = player 3
+    ///         ->initialState.teamsData[1][1] = player 4
+
+    /// 15.-In the future, when 3 way play is detected, team assigning will be
+    ///     done seperately for 3 teams of 1 player each, instead of 2 of 2.
+    /// 16.-Make an instructions page with the information contained within this
+    ///     blogpost: https://aprendeajugarcaida.blogspot.com/2015/03/caida-un-juego-de-azar-y-habilidad.html
 
     return (
         <DefaultLayout>
@@ -78,6 +93,9 @@ const CaidaCardGame = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <CaidaOptionModal />
                 </div>
             </div>
         </DefaultLayout>
