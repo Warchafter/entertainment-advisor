@@ -35,7 +35,7 @@ export const register = createAsyncThunk(
             return thunkAPI.rejectWithValue(err.response.data);
         }
     }
-)
+);
 
 const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
     try {
@@ -59,7 +59,7 @@ const getUser = createAsyncThunk('users/me', async (_, thunkAPI) => {
     } catch(err) {
         return thunkAPI.rejectWithValue(err.response.data);
     }
-})
+});
 
 export const login = createAsyncThunk(
     'users/login',
@@ -116,12 +116,41 @@ export const checkAuth = createAsyncThunk(
 
                 return data;
             } else {
+
+                return thunkAPI.rejectWithValue(data);
+            }
+        } catch (err) {
+            const { dispatch } = thunkAPI;
+
+            dispatch(refreshAuthToken());
+
+            return thunkAPI.rejectWithValue(err.response.data);
+        }
+});
+
+export const refreshAuthToken = createAsyncThunk(
+    '/api/users/refresh',
+    async (_, thunkAPI) => {
+        try {
+            const res = await fetch('/api/users/refresh', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                },
+            })
+
+            const data = await res.json();
+
+            if (res.status === 200) {
+                return data;
+            } else {
                 return thunkAPI.rejectWithValue(data);
             }
         } catch (err) {
             return thunkAPI.rejectWithValue(err.response.data);
         }
-});
+    }
+);
 
 export const logout =  createAsyncThunk(
     'users/logout',
@@ -187,11 +216,11 @@ const initialState = {
     isAuthenticated: false,
     user: null,
     loading: false,
+    refreshLoading: false,
     uiLoading: false,
     registered: false,
     error: null
 };
-
 
 
 const userSlice = createSlice({
@@ -243,6 +272,15 @@ const userSlice = createSlice({
             })
             .addCase(checkAuth.rejected, state => {
                 state.loading = false;
+            })
+            .addCase(refreshAuthToken.pending, state => {
+                state.refreshLoading = true;
+            })
+            .addCase(refreshAuthToken.fulfilled, state => {
+                state.refreshLoading = false;
+            })
+            .addCase(refreshAuthToken.rejected, state => {
+                state.refreshLoading = false;
             })
             .addCase(logout.pending, state => {
                 state.loading = true;

@@ -55,7 +55,7 @@ const App = () => {
 
   useEffect(() => {
     if (user !== null) {
-      getAllCookies()
+      getAllCookies();
       themeList.map((value, index) => {
         if (value.themeId === user.theme_picked) {
           var i;
