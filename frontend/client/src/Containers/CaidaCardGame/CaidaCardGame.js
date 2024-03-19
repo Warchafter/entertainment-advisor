@@ -5,6 +5,8 @@ import CaidaPlayerIcon from 'Components/CaidaCardGame/CaidaPlayerIcon';
 import CaidaDeck from "Containers/CaidaCardGame/CaidaDeck";
 import CaidaTable from "Containers/CaidaCardGame/CaidaTable";
 import CaidaOptionModal from "Components/CaidaCardGame/CaidaOptionModal";
+import CaidaTeamsPoints from "Containers/CaidaCardGame/CaidaTeamsPoints";
+import CaidaMatchPlayerOptionModal from "Components/CaidaCardGame/CaidaMatchPlayerOptionModal";
 
 const CaidaCardGame = () => {
     /// Random things to do:
@@ -63,6 +65,12 @@ const CaidaCardGame = () => {
     ///     done seperately for 3 teams of 1 player each, instead of 2 of 2.
     /// 16.-Make an instructions page with the information contained within this
     ///     blogpost: https://aprendeajugarcaida.blogspot.com/2015/03/caida-un-juego-de-azar-y-habilidad.html
+    /// 17.-For the future, when multiple real players are playing, have a flag for each player in
+    ///     an array that each player can toggle, to determine if everyone is ready to move on to the
+    ///     next round, plus a timer that automatically moves you to the next round.
+    /// 18.-Potentially have a timer for each player's turn, so the game keeps moving. Algo a pause
+    ///     button when needed. Pause botton could also have it's own timer.
+
 
     return (
         <DefaultLayout>
@@ -70,29 +78,41 @@ const CaidaCardGame = () => {
                 <div className="caida-main-title"><h1>Caida Card Game</h1></div>
                 <CaidaDeck />
                 <div className="caida-main-content">
+                <div className="caida-main-content__left">
                     <div className="caida-history-sidebar-wrapper">
                         <div className="caida-history-sidebar">
                         </div>
                     </div>
-                    <div className="caida-main-gamearea">
-                        <div className="caida-player-grid player-item1">
-                            <div className="caida-grid-player-item">
-                                <CaidaPlayerIcon playerNumber={1}/>
+                </div>
+                <div className="caida-main-content__right">
+                    <div className="caida-main-content__right__top">
+                        <CaidaTeamsPoints />
+                    </div>
+                    <div className="caida-main-content__right__middle">
+                        <div className="caida-main-gamearea">
+                            <div className="caida-player-grid player-item1">
+                                <div className="caida-grid-player-item">
+                                    <CaidaPlayerIcon playerNumber={1}/>
+                                </div>
+                                <div className="caida-grid-player-item">
+                                    <CaidaPlayerIcon playerNumber={2}/>
+                                </div>
                             </div>
-                            <div className="caida-grid-player-item">
-                                <CaidaPlayerIcon playerNumber={2}/>
-                            </div>
-                        </div>
-                        <CaidaTable />
-                        <div className="caida-player-grid player-item1">
-                            <div className="caida-grid-player-item">
-                                <CaidaPlayerIcon playerNumber={3}/>
-                            </div>
-                            <div className="caida-grid-player-item">
-                                <CaidaPlayerIcon playerNumber={4}/>
+                            <CaidaTable />
+                            <div className="caida-player-grid player-item1">
+                                <div className="caida-grid-player-item">
+                                    <CaidaPlayerIcon playerNumber={3}/>
+                                </div>
+                                <div className="caida-grid-player-item">
+                                    <CaidaPlayerIcon playerNumber={4}/>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div className="caida-main-content__right__bottom">
+                        <CaidaMatchPlayerOptionModal />
+                    </div>
+                </div>
                 </div>
                 <div>
                     <CaidaOptionModal />

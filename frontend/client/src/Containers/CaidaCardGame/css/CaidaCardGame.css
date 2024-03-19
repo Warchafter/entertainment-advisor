@@ -17,6 +17,15 @@
     height: auto;
 }
 
+.caida-main-content__left {}
+
+.caida-main-content__right {}
+.caida-main-content__right__top {
+    display: flex;
+}
+.caida-main-content__right__middle {}
+.caida-main-content__right__bottom {}
+
 .caida-history-sidebar-wrapper {
     display: flex;
     background-color: #d37306;

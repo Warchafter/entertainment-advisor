@@ -1,3 +1,6 @@
+import { useDispatch, useSelector } from "react-redux";
+import { getRandomWord } from "features/wordleclone";
+
 import { NavLink} from "react-router-dom";
 import DefaultLayout from "hoc/Layout/DefaultLayout";
 
@@ -35,12 +38,15 @@ const WordleCloneGame = () => {
     ///          that gets checked whenever the keyboard letters are being rendered
     ///          from a preexisting array of all the alphabet letters.
 
+    const dispatch = useDispatch();
+
+    const { loading, randomWord, gameWord } = useSelector(state => state.wordleClone);
+
     const [wordGuessed, setWordGuessed] = useState(false);
     const [lastTry, setLastTry] = useState(false);
     const [lineCount, setLineCount] = useState(1);
     const [typedWord, setTypedWord] = useState([]); // Needs to be an array.
     const [typedEntries, setTypedEntries] = useState([]);
-    const [gameWord, setGameWord] = useState(['S','T','A','T','E']);
     const [errorMsg, setErrorMsg] = useState(null);
 
     const typedWordValidation = (event) => {
@@ -181,6 +187,11 @@ const WordleCloneGame = () => {
         });
     };
 
+    const getRandomWordHandler = async () => {
+        dispatch(getRandomWord());
+        return
+    }
+
     return (
         <DefaultLayout>
             <div className="nav-top-header">
@@ -202,6 +213,8 @@ const WordleCloneGame = () => {
                 {!lastTry?renderCurrentLineWord(typedWord):null}
                 {renderEmptyLineBoxes(lineCount)}
             </div>
+            {loading ? <p style={{color: "white"}}>Loading...</p>:<p style={{color: "white"}}>{randomWord.word}</p>}
+            <button onClick={getRandomWordHandler}>Get random word!</button>
         </DefaultLayout>
     );
 };

@@ -15,6 +15,7 @@ const uiRoute = require('./routes/ui/ui');
 const weeklyAnimeRoute = require('./routes/jikanAnime/weeklyAnime');
 const favoriteAnimeRoute = require('./routes/jikanAnime/favoriteAnime');
 const todoRoute = require('./routes/todo/todo');
+const wordleCloneRoute = require('./routes/wordleClone/randomWord');
 
 
 const app = express();
@@ -31,6 +32,7 @@ app.use(uiRoute);
 app.use(weeklyAnimeRoute);
 app.use(favoriteAnimeRoute);
 app.use(todoRoute);
+app.use(wordleCloneRoute);
 
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {

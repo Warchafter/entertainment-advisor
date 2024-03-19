@@ -1,7 +1,21 @@
+import { useState, useCallback } from 'react';
+import { useDispatch } from "react-redux";
+import { getRandomWord } from "features/wordleclone";
+
 import "./css/WinScreenModal.css";
 import "../css/ToDoModal.css";
 
 const WinScreenModal = ({gameWord, lineCount, }) => {
+    const dispatch = useDispatch();
+
+    const [, updateState] = useState();
+    const forceUpdate = useCallback(() => updateState({}), []);
+
+    const onTryAgainHandler = () => {
+        dispatch(getRandomWord());
+        forceUpdate();
+    }
+
     return (
         <div className="wordle-win-wrapper">
             <div className="win-title">
@@ -17,7 +31,7 @@ const WinScreenModal = ({gameWord, lineCount, }) => {
             <div className="win-description">It only took: {lineCount-1} tries.</div>
             <div className="win-button-row">
                 <button className="button-13 win-continue-btn">Continue</button>
-                <button className="button-13 win-tryagain-btn">Try Again!</button>
+                <button onClick={onTryAgainHandler} className="button-13 win-tryagain-btn">Try Again!</button>
             </div>
         </div>
     );
