@@ -140,13 +140,16 @@ export const refreshAuthToken = createAsyncThunk(
             })
 
             const data = await res.json();
+            console.log("data: ",data);
 
             if (res.status === 200) {
                 return data;
             } else {
+                console.log("The error ocurred in the else", data);
                 return thunkAPI.rejectWithValue(data);
             }
         } catch (err) {
+            console.log("The error ocurred in the else", err);
             return thunkAPI.rejectWithValue(err.response.data);
         }
     }
