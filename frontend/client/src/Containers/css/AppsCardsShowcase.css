@@ -51,8 +51,9 @@
 
 /* Define styles for the target element */
 .target {
-    background-color: lightgreen;
-    margin-top: 20px;
+    background-color: rgba(18, 17, 19, 0.493);
+    margin-top: -60px;
+    z-index: 3;
     transition: margin-top 0.3s ease;
 }
 
