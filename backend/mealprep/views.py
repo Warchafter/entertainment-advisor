@@ -1,10 +1,6 @@
 from rest_framework import viewsets
-from .models import MealType, Ingredient, Meal, MealIngredient
-from .serializers import MealTypeSerializer, IngredientSerializer, MealSerializer
-
-class MealTypeViewSet(viewsets.ModelViewSet):
-    queryset = MealType.objects.all()
-    serializer_class = MealTypeSerializer
+from .models import Ingredient, Meal, PlannedMeal
+from .serializers import IngredientSerializer, MealSerializer, PlannedMealSerializer
 
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
@@ -13,3 +9,7 @@ class IngredientViewSet(viewsets.ModelViewSet):
 class MealViewSet(viewsets.ModelViewSet):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
+
+class PlannedMealViewSet(viewsets.ModelViewSet):
+    queryset = PlannedMeal.objects.all()
+    serializer_class = PlannedMealSerializer
