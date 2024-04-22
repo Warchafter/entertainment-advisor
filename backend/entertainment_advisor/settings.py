@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "core",
     "jikananime",
     "todo",
+    "mealprep",
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,32 @@
+# Use the Node.js Alpine image as the base
+FROM node:alpine
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the package.json and package-lock.json files for backend
+COPY package*.json ./
+
+# Install backend dependencies
+RUN npm install
+
+# Change directory to /app/client (frontend)
+WORKDIR /app/client
+
+# Copy the frontend source code
+COPY client .
+
+# Install frontend dependencies
+RUN npm install
+
+# Build the React app
+RUN npm run build
+
+# Change directory back to /app (root directory)
+WORKDIR /app
+
+# Expose port 5000 for the React frontend
+EXPOSE 5000
+
+# Command to run both backend and frontend concurrently
+CMD ["npm", "run", "start"]

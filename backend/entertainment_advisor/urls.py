@@ -31,5 +31,6 @@ urlpatterns = [
     path('api/jikananime/', include('jikananime.urls')),
     path('api/todo/', include('todo.urls')),
     path('api/users/', include('users.urls')),
+    path('api/mealprep/', include('mealprep.urls')),
     path("admin/", admin.site.urls),
 ]
