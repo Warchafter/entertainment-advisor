@@ -26,7 +26,7 @@ class Meal(models.Model):
     ingredients = models.ManyToManyField(Ingredient, through='MealIngredient')
 
     def __str__(self):
-        return f'{self.name} ({self.get_meal_type_display()})'
+        return f'{self.name}'
 
 class MealIngredient(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
@@ -54,3 +54,5 @@ class PlannedMeal(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.get_meal_type_display()})'
+
+

@@ -32,5 +32,6 @@ urlpatterns = [
     path('api/todo/', include('todo.urls')),
     path('api/users/', include('users.urls')),
     path('api/mealprep/', include('mealprep.urls')),
+    path('api/musicbands/', include('musicbands.urls')),
     path("admin/", admin.site.urls),
 ]
